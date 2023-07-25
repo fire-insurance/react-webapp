@@ -1,0 +1,30 @@
+{
+  "name": "react-webapp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fire-insurance/react-webapp.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/fire-insurance/react-webapp/issues"
+  },
+  "homepage": "https://github.com/fire-insurance/react-webapp#readme",
+  "devDependencies": {
+    "@types/node": "^17.0.21",
+    "@types/webpack": "^5.28.1",
+    "html-webpack-plugin": "^5.5.0",
+    "ts-loader": "^9.2.6",
+    "ts-node": "^10.5.0",
+    "typescript": "^4.5.5",
+    "webpack": "^5.69.1",
+    "webpack-cli": "^4.9.2"
+  }
+}
