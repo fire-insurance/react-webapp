@@ -1,10 +1,8 @@
 import { ProgressPlugin, WebpackPluginInstance } from 'webpack';
 import HTMLWebpackPlugin from 'html-webpack-plugin';
-import path from 'path';
+import { BuildPaths } from './types/config';
 
-export const buildPlugins = (): WebpackPluginInstance[] => [
-    new HTMLWebpackPlugin({
-        template: path.resolve(__dirname, 'public', 'index.html'),
-    }),
+export const buildPlugins = (paths: BuildPaths): WebpackPluginInstance[] => [
+    new HTMLWebpackPlugin({ template: paths.html }),
     new ProgressPlugin(),
 ];
