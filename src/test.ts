@@ -1,1 +1,1 @@
-export const someFn = (): string => '';
+export const someFn = () => console.log('start');
