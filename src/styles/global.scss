@@ -1,0 +1,14 @@
+// this file should ONLY be imported once! (to root layout)
+@import 'reset';
+@import 'colors/generator';
+@import 'colors/map';
+@import 'font/fontMap';
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700;800;900&display=swap');
+
+.app {
+  @include create-css-themes-root;
+
+  background-color: $grayscale-1;
+  color: $grayscale-10;
+  min-height: 100vh;
+}

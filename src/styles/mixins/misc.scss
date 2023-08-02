@@ -1,0 +1,35 @@
+@mixin line-overflow($lines-count) {
+  display: -webkit-box;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: $lines-count;
+  line-clamp: $lines-count;
+}
+
+@mixin nowrap-overflow {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@mixin with-alpha-background($color, $alpha) {
+  &:before {
+    content: '';
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: $color;
+    opacity: $alpha;
+  }
+}
+
+// 100vh на мобильных устройствах не учитывает
+// размеры панелек браузера.
+// этот миксин (должен) фиксить эту проблему
+@mixin mobile-100vh() {
+  height: 100vh;
+  height: -webkit-fill-available;
+}

@@ -1,0 +1,59 @@
+@import './placeholders';
+
+h1,
+.h1 {
+  @extend %h1;
+}
+
+h2,
+.h2 {
+  @extend %h2;
+}
+
+h3,
+.h3 {
+  @extend %h3;
+}
+
+h4,
+.h4 {
+  @extend %h4;
+}
+
+h5,
+.h5 {
+  @extend %h5;
+}
+
+h6,
+.h6 {
+  @extend %h6;
+}
+
+.text {
+  @extend %text;
+}
+
+.text-bold {
+  @extend %text-bold;
+}
+
+.subtitle {
+  @extend %subtitle;
+}
+
+.button-label {
+  @extend %button-label;
+}
+
+.button-label-mini {
+  @extend %button-label-mini;
+}
+
+.caption {
+  @extend %caption;
+}
+
+.caption-mini {
+  @extend %caption-mini;
+}
