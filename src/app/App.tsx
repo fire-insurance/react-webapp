@@ -1,11 +1,11 @@
 import { Route, Routes } from 'react-router-dom';
 import './styles/global.scss';
 import { Link } from 'react-router-dom';
-import { AboutPageAsync } from './pages/aboutPage/aboutPage.async';
-import { MainPageAsync } from './pages/mainPage/mainPage.async';
 import { Suspense } from 'react';
 import clsx from 'clsx';
-import { useTheme } from './theme/useTheme';
+import { useTheme } from './providers/themeProvider';
+import { AboutPage } from 'pages/aboutPage';
+import { MainPage } from 'pages/mainPage';
 
 export const App = () => {
     const { theme, toggleTheme } = useTheme();
@@ -19,11 +19,11 @@ export const App = () => {
                 <Routes>
                     <Route
                         path={'/about'}
-                        element={<AboutPageAsync/>}
+                        element={<AboutPage/>}
                     />
                     <Route
                         path={'/'}
-                        element={<MainPageAsync/>}
+                        element={<MainPage/>}
                     />
                 </Routes>
             </Suspense>
