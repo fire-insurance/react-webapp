@@ -21,3 +21,5 @@ build.rar
 .env.production.local
 
 npm-debug.log*
+
+.vscode

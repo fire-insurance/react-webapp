@@ -1,0 +1,15 @@
+@import 'app/styles';
+
+.container {
+  @include flex-row-center(12px);
+
+  justify-content: space-between;
+  width: 100%;
+  height: $header-height;
+  padding: 0 16px;
+  background-color: $grayscale-2;
+}
+
+.nav {
+  @include flex-row-center(12px);
+}
