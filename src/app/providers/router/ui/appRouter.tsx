@@ -1,6 +1,6 @@
 import { Suspense } from 'react';
 import { Routes, Route } from 'react-router-dom';
-import { routeConfig } from 'z-shared/config/routeConfig/routeConfig';
+import { routeConfig } from '../model/const/routeConfig';
 
 export const AppRouter = () => (
     <Suspense fallback={<div>Loading...</div>}>
