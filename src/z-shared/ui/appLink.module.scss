@@ -1,11 +1,13 @@
 @import 'app/styles';
 
 .link {
+  @extend %button-label-mini;
+
   color: $grayscale-10;
   transition: color $default-transition;
 
   &:hover {
-    color: $accent-3;
+    color: $accent-1;
   }
 
   &:active {

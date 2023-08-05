@@ -1,9 +1,11 @@
 @import 'themes/light';
 @import 'themes/dark';
+@import 'themes/black';
 
 $themes: (
   light: $light-theme,
   dark: $dark-theme,
+  black: $black-theme,
 );
 
 @function generate-theme-colors($theme) {
