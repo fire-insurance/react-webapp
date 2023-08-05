@@ -1,0 +1,14 @@
+@import 'app/styles';
+
+.link {
+  color: $grayscale-10;
+  transition: color $default-transition;
+
+  &:hover {
+    color: $accent-3;
+  }
+
+  &:active {
+    color: $accent-2;
+  }
+}
