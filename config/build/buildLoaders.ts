@@ -3,13 +3,28 @@ import { RuleSetRule } from 'webpack';
 import { BuildOptions } from './types/config';
 
 export const buildLoaders = ({ isDevelopment }: BuildOptions): RuleSetRule[] => {
-    const typescriptLoader = {
+
+    const svgLoader: RuleSetRule = {
+        test: /\.svg$/,
+        use: [ '@svgr/webpack' ],
+    };
+
+    const imageLoader: RuleSetRule = {
+        test: /\.(png|jpe?g|gif)$/,
+        use: [
+            {
+                loader: 'file-loader',
+            },
+        ],
+    };
+
+    const typescriptLoader: RuleSetRule = {
         test: /\.tsx?$/,
         use: 'ts-loader',
         exclude: /node_modules/,
     };
 
-    const cssLoader = {
+    const cssLoader: RuleSetRule = {
         test: /\.s[ac]ss$/i,
         use: [
             isDevelopment ? 'style-loader' : MiniCssExtractPlugin.loader,
@@ -28,5 +43,5 @@ export const buildLoaders = ({ isDevelopment }: BuildOptions): RuleSetRule[] => 
         ],
     };
 
-    return [ typescriptLoader, cssLoader ];
+    return [ typescriptLoader, cssLoader, svgLoader, imageLoader ];
 };

@@ -6,3 +6,8 @@ declare module '*.scss' {
     const classNames: ClassNames;
     export = classNames;
 }
+
+declare module '*.png';
+declare module '*.jpg';
+declare module '*.jpeg';
+declare module '*.gif';
