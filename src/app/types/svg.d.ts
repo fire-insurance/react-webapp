@@ -1,5 +1,6 @@
+declare type SVGComponent = React.VFC<React.SVGAttributes<SVGElement>>;
+
 declare module '*.svg' {
-    import { VFC, SVGProps } from 'react';
-    const SVG: VFC<SVGProps<SVGSVGElement>>;
+    const SVG: SVGComponent;
     export default SVG;
 }

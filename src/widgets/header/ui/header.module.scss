@@ -1,4 +1,4 @@
-@import 'app/styles';
+@import '@/app/styles';
 
 .container {
   @include flex-row-center(12px);
