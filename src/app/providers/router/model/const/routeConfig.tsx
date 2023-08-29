@@ -1,7 +1,7 @@
-import { AboutPage } from 'pages/aboutPage';
-import { MainPage } from 'pages/mainPage';
+import { AboutPage } from '@/pages/aboutPage';
+import { MainPage } from '@/pages/mainPage';
 import { RouteProps } from 'react-router-dom';
-import { AppRoutes, routePath } from 'z-shared/config/routeConfig';
+import { AppRoutes, routePath } from '@/z-shared/config/routeConfig';
 
 export const routeConfig: Record<AppRoutes, RouteProps> = {
     [AppRoutes.MAIN]: {

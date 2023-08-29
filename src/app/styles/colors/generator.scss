@@ -5,7 +5,7 @@
 $themes: (
   light: $light-theme,
   dark: $dark-theme,
-  black: $black-theme,
+  "black": $black-theme,
 );
 
 @function generate-theme-colors($theme) {
