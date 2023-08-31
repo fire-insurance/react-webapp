@@ -21,6 +21,10 @@
   &:enabled:hover {
     color: var(--content-hover-color);
     background-color: var(--bg-hover-color);
+
+    svg {
+      fill: var(--content-hover-color);
+    }
   }
 
   &:disabled {

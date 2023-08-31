@@ -1,1 +1,11 @@
-    
+@import '@/app/styles';
+
+.container {
+  @include flex-col(16px);
+
+  padding: 24px
+}
+
+.row {
+  @include flex-row-center(16px);
+}

@@ -44,7 +44,7 @@ export const generateButtonCssVar = (variant: ButtonVariant, theme?: AccentColor
             const colorModifierMap: ColorModifier =
                 colorSet === AppColors.GRAYSCALE
                     ? { bgHover: 2, content: 9, contentHover: 10 }
-                    : { bgHover: 6, content: 1 };
+                    : { bgHover: 6, content: 1, contentHover: 1 };
 
             return constructVarObject(colorSet as AppColors, colorModifierMap);
         }
@@ -55,12 +55,11 @@ const constructVarObject = (colorSet: AppColors, modifiers: ColorModifier): Butt
     const { bg, bgHover, content, contentHover } = modifiers;
     const defaultBgColor = 'transparent';
     const defaultContentColor = '#fff';
-    console.log(colorSet);
 
     return {
         '--bg-color': bg ? `var(--${colorSet}-${bg})` : defaultBgColor,
         '--bg-hover-color': bgHover ? `var(--${colorSet}-${bgHover})` : defaultBgColor,
-        '--content-color': content ? `var(${`${colorSet}-${content}`})` : defaultContentColor,
-        '--content-hover-color': contentHover ? `var(${`${colorSet}-${contentHover}`})` : defaultContentColor,
+        '--content-color': content ? `var(--${`${colorSet}-${content}`})` : defaultContentColor,
+        '--content-hover-color': contentHover ? `var(--${`${colorSet}-${contentHover}`})` : defaultContentColor,
     };
 };
