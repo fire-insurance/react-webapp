@@ -1,0 +1,65 @@
+@import '@/app/styles';
+
+.button {
+  @include flex-row-center(12px);
+  @include size-svg(20px);
+
+  --padding-L: 0 20px;
+  --padding-S: 0 12px;
+
+  transition: opacity $default-transition, background-color $default-transition,
+    color $default-transition;
+  justify-content: space-between;
+  color: var(--content-color);
+  background-color: var(--bg-color);
+
+  svg {
+    transition: fill $default-transition;
+    fill: var(--content-color);
+  }
+
+  &:enabled:hover {
+    color: var(--content-hover-color);
+    background-color: var(--bg-hover-color);
+  }
+
+  &:disabled {
+    opacity: 40%;
+    cursor: default;
+  }
+
+  .icon-wrapper {
+    @include flex-row-center(12px);
+
+    &_align--right {
+      flex-direction: row-reverse;
+    }
+  }
+
+  &--fill {
+    width: 100%;
+  }
+
+  &--square {
+    padding: 0;
+    aspect-ratio: 1;
+  }
+
+  &_variant--primary,
+  &_variant--secondary,
+  &_variant--ghost {
+    border-radius: 4px;
+
+    &.button_size--l {
+      padding: var(--padding-S);
+      min-height: 40px;
+    }
+
+    &.button_size--s {
+      @include size-svg(16px);
+
+      padding: var(--padding-S);
+      min-height: 32px;
+    }
+  }
+}
