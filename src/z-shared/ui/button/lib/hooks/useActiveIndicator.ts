@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 import s from './activeIndicator.module.scss';
 import { exitAnimation, exitAnimationId, initialAnimation, initialAnimationId } from './const/animations';
+import { ScreenEvent, getScreenEventPosition } from '../utils/getScreentEventPosition';
 
 export const useActiveIndicator = <T extends HTMLElement>() => {
     const elementRef = useRef<T | null>();
@@ -25,19 +26,15 @@ export const useActiveIndicator = <T extends HTMLElement>() => {
         };
     }, []);
 
-    const appendIndicator = (e: MouseEvent) => {
+    const appendIndicator = (e: ScreenEvent) => {
         const element = elementRef!.current;
-        console.log(e);
-
         const { x, y } = element.getBoundingClientRect();
-        console.log(x, y);
-
-        const { clientX, clientY } = e;
+        const { x: eventX, y: eventY } = getScreenEventPosition(e);
 
         const indicator = document.createElement('div');
         indicator.setAttribute('class', s['indicator']);
-        indicator.style.left = `${clientX - x}px`;
-        indicator.style.top = `${clientY - y}px`;
+        indicator.style.left = `${eventX - x}px`;
+        indicator.style.top = `${eventY - y}px`;
         indicator.animate(...initialAnimation);
 
         activeIndicatorSet.current.add(indicator);
