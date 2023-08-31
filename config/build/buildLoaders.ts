@@ -6,7 +6,7 @@ export const buildLoaders = ({ isDevelopment }: BuildOptions): RuleSetRule[] => 
 
     const svgLoader: RuleSetRule = {
         test: /\.svg$/,
-        use: [ '@svgr/webpack' ],
+        use: [ { loader: '@svgr/webpack', options: { icon: true } } ],
     };
 
     const imageLoader: RuleSetRule = {
