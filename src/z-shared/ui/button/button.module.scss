@@ -2,7 +2,6 @@
 
 .button {
   @include flex-row-center(12px);
-  @include size-svg(20px);
 
   --padding-L: 0 20px;
   --padding-S: 0 12px;
@@ -12,24 +11,30 @@
   justify-content: space-between;
   color: var(--content-color);
   background-color: var(--bg-color);
+  position: relative;
+  overflow: hidden;
 
   svg {
     transition: fill $default-transition;
     fill: var(--content-color);
   }
 
-  &:enabled:hover {
-    color: var(--content-hover-color);
-    background-color: var(--bg-hover-color);
+  @media (hover: hover) {
+    &:enabled:hover,
+    &:enabled:focus {
+      color: var(--content-hover-color);
+      background-color: var(--bg-hover-color);
 
-    svg {
-      fill: var(--content-hover-color);
+      svg {
+        fill: var(--content-hover-color);
+      }
     }
   }
 
   &:disabled {
     opacity: 40%;
     cursor: default;
+    filter: saturate(60%);
   }
 
   .icon-wrapper {
@@ -49,6 +54,16 @@
     aspect-ratio: 1;
   }
 
+  &_size--l {
+    @include size-svg(20px);
+    @extend %button-label;
+  }
+
+  &_size--s {
+    @include size-svg(16px);
+    @extend %button-label-mini;
+  }
+
   &_variant--primary,
   &_variant--secondary,
   &_variant--ghost {
@@ -60,8 +75,6 @@
     }
 
     &.button_size--s {
-      @include size-svg(16px);
-
       padding: var(--padding-S);
       min-height: 32px;
     }

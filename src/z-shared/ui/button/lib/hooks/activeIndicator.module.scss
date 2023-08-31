@@ -1,0 +1,10 @@
+@import '@/app/styles';
+
+.indicator {
+  position: absolute;
+  transition: opacity $default-transition, width $default-transition;
+  background-color: $constant-white;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  aspect-ratio: 1;
+}

@@ -1,4 +1,4 @@
-import { Button, ButtonVariant } from '@/z-shared/ui/button';
+import { Button, ButtonSize, ButtonVariant } from '@/z-shared/ui/button';
 import Test from '@/z-shared/assets/icons/uil_fire.svg';
 import { AccentColors } from '@/z-shared/types/appColors';
 import s from './mainPage.module.scss';
@@ -10,6 +10,7 @@ const MainPage = () => (
                 variant={ButtonVariant.PRIMARY}
                 text={'button'}
                 icon={<Test/>}
+                size={ButtonSize.S}
                 secondaryIcon={<Test/>}
             />
             <Button

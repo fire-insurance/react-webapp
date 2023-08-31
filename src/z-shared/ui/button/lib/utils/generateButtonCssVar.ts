@@ -1,5 +1,5 @@
 import { AccentColors, AppColors } from '@/z-shared/types/appColors';
-import { ButtonCSSProperties, ButtonVariant } from '../types/buttonTypes';
+import { ButtonCSSProperties, ButtonVariant } from '../../model/types/buttonTypes';
 
 type ColorModifier = {
     bg?: number;

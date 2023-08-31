@@ -2,7 +2,8 @@ import s from './button.module.scss';
 import clsx from 'clsx';
 import { ButtonProps, ButtonSize, ButtonVariant } from './model/types/buttonTypes';
 import { useMemo } from 'react';
-import { generateButtonCssVar } from './model/utils/generateButtonCssVar';
+import { generateButtonCssVar } from './lib/utils/generateButtonCssVar';
+import { useActiveIndicator } from './lib/hooks/useActiveIndicator';
 
 export const Button = (props: ButtonProps) => {
     const {
@@ -10,6 +11,7 @@ export const Button = (props: ButtonProps) => {
         icon: Icon, secondaryIcon: SecondaryIcon, fillContainer, onClick, showLoader, text, ...rest
     } = props;
 
+    const buttonRef = useActiveIndicator<HTMLButtonElement>();
     const buttonVar = useMemo(() => generateButtonCssVar(variant, theme), [ variant, theme ]);
 
     return (
@@ -26,7 +28,8 @@ export const Button = (props: ButtonProps) => {
                 className,
             )}
             style={buttonVar}
-            onClick={showLoader ? onClick : undefined}
+            onClick={showLoader ? undefined : onClick}
+            ref={buttonRef}
             {...rest}
         >
             <div className={clsx(s['icon-wrapper'], s[`icon-wrapper_align--${iconAlignment}`])}>
