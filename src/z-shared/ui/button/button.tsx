@@ -5,6 +5,8 @@ import { useMemo } from 'react';
 import { generateButtonCssVar } from './lib/utils/generateButtonCssVar';
 import { useActiveIndicator } from '../../lib/hooks/useActiveIndicator/useActiveIndicator';
 
+// 3) Обработка загрузки
+// 4) Скелетон
 export const Button = (props: ButtonProps) => {
     const {
         className, variant = ButtonVariant.PRIMARY, size = ButtonSize.L, theme, iconAlignment = 'left',

@@ -8,6 +8,9 @@ type ColorModifier = {
     contentHover?: number;
 };
 
+/**
+ * Генерирует css variables для цветов (фон/контент) кнопки в зависимости от переданной темы и варианта.
+ */
 export const generateButtonCssVar = (variant: ButtonVariant, theme?: AccentColors): ButtonCSSProperties => {
     switch (variant) {
         case ButtonVariant.PRIMARY: {

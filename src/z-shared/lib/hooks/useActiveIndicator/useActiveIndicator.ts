@@ -4,9 +4,13 @@ import { ScreenEvent, getScreenEventPosition } from '../../utils/getScreenEventP
 import { initialAnimation, initialAnimationId, exitAnimationId, exitAnimation } from './const/animations';
 import { getInteractionEventKeys } from './utils/getInteractionEventKeys';
 
-// 3) Обработка загрузки
-// 4) Скелетон
-
+/**
+ * Возвращает ref заданного типа.
+ * На ref навешивает слушатель на событие "нажатия" (click/touch).
+ * По нажатию отрисовывает на элементе расширяющуюся окружность.
+ * @note
+ * Элемент, для которого передается ref должен иметь position: relative
+ */
 export const useActiveIndicator = <T extends HTMLElement>() => {
     const elementRef = useRef<T | null>();
     const activeIndicatorSet = useRef<Set<HTMLDivElement>>(new Set());

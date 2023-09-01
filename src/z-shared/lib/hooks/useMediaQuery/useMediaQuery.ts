@@ -1,8 +1,12 @@
 import { useEffect, useState } from 'react';
 import { createMediaQuery } from './utils/createMediaQuery';
 
+/**
+ * Навешивает слушатель события на window.matchMedia
+ * и возвращает стейт matches для переданного mediaQuery
+ * @param query
+ */
 export const useMediaQuery = (query: string) => {
-
     const [ matches, setMatches ] = useState(false);
 
     useEffect(() => {
