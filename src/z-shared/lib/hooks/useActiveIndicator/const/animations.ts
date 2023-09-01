@@ -1,9 +1,11 @@
 type AnimateFunctionProps = Parameters<HTMLElement['animate']>
 
+const resultingOpacity = '10%';
+
 const initialAnimationKeyframes: Keyframe[] = [
     { 'opacity': '0%', 'width': '0%' },
-    { 'opacity': '10%' },
-    { 'opacity': '10%', 'width': '200%' },
+    { 'opacity': resultingOpacity },
+    { 'opacity': resultingOpacity, 'width': '200%' },
 ];
 
 export const initialAnimationDuration = 300;
@@ -19,7 +21,7 @@ const initialAnimationProps: KeyframeAnimationOptions = {
 export const initialAnimation: AnimateFunctionProps = [ initialAnimationKeyframes, initialAnimationProps ];
 
 const exitAnimationKeyframes: Keyframe[] = [
-    { 'opacity': '5%' },
+    { 'opacity': resultingOpacity },
     { 'opacity': '0%' },
 ];
 
