@@ -4,8 +4,8 @@ import { ButtonProps, ButtonSize, ButtonVariant } from './types/buttonTypes';
 import { useMemo } from 'react';
 import { generateButtonCssVar } from './lib/utils/generateButtonCssVar';
 import { useActiveIndicator } from '../../lib/hooks/useActiveIndicator/useActiveIndicator';
+import { Loader } from '../loader/loader';
 
-// 3) Обработка загрузки
 // 4) Скелетон
 export const Button = (props: ButtonProps) => {
     const {
@@ -13,7 +13,7 @@ export const Button = (props: ButtonProps) => {
         icon: Icon, secondaryIcon: SecondaryIcon, fillContainer, onClick, showLoader, text, ...rest
     } = props;
 
-    const buttonRef = useActiveIndicator<HTMLButtonElement>();
+    const buttonRef = useActiveIndicator<HTMLButtonElement>(showLoader);
     const buttonVar = useMemo(() => generateButtonCssVar(variant, theme), [ variant, theme ]);
 
     return (
@@ -26,6 +26,7 @@ export const Button = (props: ButtonProps) => {
                 {
                     [s['button--square']]: Icon && !text && !SecondaryIcon,
                     [s['button--fill']]: fillContainer,
+                    [s['button--loading']]: showLoader,
                 },
                 className,
             )}
@@ -34,6 +35,14 @@ export const Button = (props: ButtonProps) => {
             ref={buttonRef}
             {...rest}
         >
+            {
+                showLoader && (
+                    <Loader
+                        className={s['button-loader']}
+                        style={buttonVar}
+                    />
+                )
+            }
             <div className={clsx(s['icon-wrapper'], s[`icon-wrapper_align--${iconAlignment}`])}>
                 { Icon ?? null }
                 {text}

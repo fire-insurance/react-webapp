@@ -11,10 +11,15 @@ import { getInteractionEventKeys } from './utils/getInteractionEventKeys';
  * @note
  * Элемент, для которого передается ref должен иметь position: relative
  */
-export const useActiveIndicator = <T extends HTMLElement>() => {
+export const useActiveIndicator = <T extends HTMLElement>(disabled = false) => {
     const elementRef = useRef<T | null>();
     const activeIndicatorSet = useRef<Set<HTMLDivElement>>(new Set());
     const interactionEventKeys = useRef(getInteractionEventKeys());
+    const disabledRef = useRef(disabled);
+
+    useEffect(() => {
+        disabledRef.current = disabled;
+    }, [ disabled ]);
 
     // Навешиваем на элемент слушатель на событие нажатия
     useEffect(() => {
@@ -35,6 +40,8 @@ export const useActiveIndicator = <T extends HTMLElement>() => {
      * div получает анимацию расширяющейся окружности.
      */
     const appendIndicator = (e: ScreenEvent) => {
+        if (disabledRef.current) return;
+
         const element = elementRef!.current;
         const { x, y } = element.getBoundingClientRect();
         const { x: eventX, y: eventY } = getScreenEventPosition(e);
