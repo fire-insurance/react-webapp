@@ -13,7 +13,8 @@ export const Button = (props: ButtonProps) => {
         icon: Icon, secondaryIcon: SecondaryIcon, fillContainer, onClick, showLoader, text, ...rest
     } = props;
 
-    const buttonRef = useActiveIndicator<HTMLButtonElement>(showLoader);
+    const disableActiveIndicator = showLoader || variant === ButtonVariant.FLAT || variant === ButtonVariant.THIN;
+    const buttonRef = useActiveIndicator<HTMLButtonElement>(disableActiveIndicator);
     const buttonVar = useMemo(() => generateButtonCssVar(variant, theme), [ variant, theme ]);
 
     return (
@@ -45,7 +46,9 @@ export const Button = (props: ButtonProps) => {
             }
             <div className={clsx(s['icon-wrapper'], s[`icon-wrapper_align--${iconAlignment}`])}>
                 { Icon ?? null }
-                {text}
+                <span>
+                    {text}
+                </span>
             </div>
             { SecondaryIcon ?? null }
         </button>

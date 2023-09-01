@@ -6,8 +6,7 @@
   --padding-L: 0 20px;
   --padding-S: 0 12px;
 
-  transition: opacity $default-transition, background-color $default-transition,
-    color $default-transition;
+  transition: opacity $default-transition, background-color $default-transition;
   justify-content: space-between;
   color: var(--content-color);
   background-color: var(--bg-color);
@@ -17,6 +16,10 @@
   svg {
     transition: fill $default-transition;
     fill: var(--content-color);
+  }
+
+  span {
+    transition: color $default-transition;
   }
 
   @media (hover: hover) {
@@ -77,6 +80,14 @@
     &.button_size--s {
       padding: var(--padding-S);
       min-height: 32px;
+    }
+  }
+
+  &_variant--flat,
+  &_variant--thin {
+    transition: filter $default-transition;
+    &:active {
+      filter: brightness(0.8);
     }
   }
 

@@ -2,15 +2,16 @@ import { Button, ButtonVariant } from '@/z-shared/ui/button';
 import Test from '@/z-shared/assets/icons/uil_fire.svg';
 import { AccentColors } from '@/z-shared/types/appColors';
 import s from './mainPage.module.scss';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 const MainPage = () => {
     const [ loading, setLoading ] = useState(false);
     const toggle = () => setLoading(prev => !prev);
 
-    useEffect(() => {
-        setInterval(() => toggle(), 3000);
-    }, []);
+    const loadSmth = () => {
+        setLoading(true);
+        setTimeout(() => toggle(), 3000);
+    };
 
     return (
         <div className={s['container']}>
@@ -21,6 +22,7 @@ const MainPage = () => {
                     icon={<Test/>}
                     secondaryIcon={<Test/>}
                     showLoader={loading}
+                    onClick={loadSmth}
                 />
                 <Button
                     variant={ButtonVariant.PRIMARY}

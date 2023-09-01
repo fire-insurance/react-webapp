@@ -37,8 +37,8 @@ export const generateButtonCssVar = (variant: ButtonVariant, theme?: AccentColor
         case ButtonVariant.THIN: {
             const colorSet = theme ?? AppColors.GRAYSCALE;
             const colorModifierMap: ColorModifier = colorSet === AppColors.GRAYSCALE
-                ? { content: 10, contentHover: 9 }
-                : { content: 4, contentHover: 1 };
+                ? { content: 9, contentHover: 10 }
+                : { content: 3, contentHover: 1 };
 
             return constructVarObject(colorSet as AppColors, colorModifierMap);
         }
