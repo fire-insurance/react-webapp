@@ -1,9 +1,9 @@
 import s from './button.module.scss';
 import clsx from 'clsx';
-import { ButtonProps, ButtonSize, ButtonVariant } from './model/types/buttonTypes';
+import { ButtonProps, ButtonSize, ButtonVariant } from './types/buttonTypes';
 import { useMemo } from 'react';
 import { generateButtonCssVar } from './lib/utils/generateButtonCssVar';
-import { useActiveIndicator } from './lib/hooks/useActiveIndicator';
+import { useActiveIndicator } from '../../lib/hooks/useActiveIndicator/useActiveIndicator';
 
 export const Button = (props: ButtonProps) => {
     const {
