@@ -1,0 +1,26 @@
+@import '@/app/styles';
+
+$last-line-width-map: (
+  25: 25%,
+  50: 50%,
+  75: 75%,
+  100: 100%,
+);
+
+.paragraph-skeleton {
+  @include flex-col;
+
+  width: 100%;
+
+  > * {
+    transform: scaleY(0.5);
+  }
+}
+
+@each $key, $width in $last-line-width-map {
+  .paragraph-skeleton--last-line-#{$key} {
+    > *:last-child {
+      width: $width;
+    }
+  }
+}

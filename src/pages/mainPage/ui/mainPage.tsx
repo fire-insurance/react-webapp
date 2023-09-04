@@ -3,6 +3,9 @@ import Test from '@/z-shared/assets/icons/uil_fire.svg';
 import { AccentColors } from '@/z-shared/types/appColors';
 import s from './mainPage.module.scss';
 import { useState } from 'react';
+import { Skeleton } from '@/z-shared/ui/skeleton/skeleton';
+import { ParagraphSkeleton } from '@/z-shared/ui/skeleton';
+import { AppTypography } from '@/z-shared/types/appTypography';
 
 const MainPage = () => {
     const [ loading, setLoading ] = useState(false);
@@ -16,6 +19,11 @@ const MainPage = () => {
     return (
         <div className={s['container']}>
             <div className={s['row']}>
+                <Skeleton className={s['skeleton']}/>
+                <ParagraphSkeleton
+                    className={AppTypography.BTN_LABEL}
+                    lineQuantity={4}
+                />
                 <Button
                     variant={ButtonVariant.PRIMARY}
                     text={'button'}

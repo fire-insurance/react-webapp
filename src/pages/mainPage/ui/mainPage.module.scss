@@ -9,3 +9,8 @@
 .row {
   @include flex-row-center(16px);
 }
+
+.skeleton {
+  height: 40px;
+  width: 30px;
+}
