@@ -13,7 +13,7 @@ export enum AccentColors {
 
 export enum AppColors {
     GRAYSCALE = BackgroundColors.GRAYSCALE,
-    SECONDARY = BackgroundColors.GRAYSCALE,
+    SECONDARY = BackgroundColors.SECONDARY,
     ACCENT = AccentColors.ACCENT,
     GREEN = AccentColors.GREEN,
     RED = AccentColors.RED,

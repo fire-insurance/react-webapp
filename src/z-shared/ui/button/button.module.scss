@@ -7,7 +7,7 @@
   --padding-S: 0 12px;
 
   transition: opacity $default-transition, background-color $default-transition;
-  justify-content: space-between;
+  justify-content: center;
   color: var(--content-color);
   background-color: var(--bg-color);
   position: relative;
@@ -40,14 +40,6 @@
     filter: saturate(60%);
   }
 
-  .icon-wrapper {
-    @include flex-row-center(8px);
-
-    &_align--right {
-      flex-direction: row-reverse;
-    }
-  }
-
   &--fill {
     width: 100%;
   }
@@ -61,6 +53,8 @@
     @include size-svg(20px);
     @extend %button-label;
 
+    max-height: 40px;
+
     .icon-skeleton {
       height: 20px;
     }
@@ -69,6 +63,8 @@
   &_size--s {
     @include size-svg(16px);
     @extend %button-label-mini;
+
+    max-height: 32px;
 
     .icon-skeleton {
       height: 16px;
@@ -120,15 +116,8 @@
   }
 }
 
-.skeleton {
-  .icon-wrapper {
-    width: 100%;
-    justify-content: center;
-  }
-
-  .skeleton-text {
-    min-width: 4ch;
-  }
+.skeleton-text {
+  min-width: 4ch;
 }
 
 .skeleton_variant {

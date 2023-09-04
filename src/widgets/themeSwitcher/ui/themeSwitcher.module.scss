@@ -1,8 +1,0 @@
-@import '@/app/styles';
-
-.container {
-  @include flex-row-center(6px);
-  @include color-svg($grayscale-10);
-  @include size-svg(20px);
-  @extend %button-label-mini;
-}

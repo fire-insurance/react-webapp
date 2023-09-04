@@ -5,6 +5,7 @@ import { useMemo } from 'react';
 import { generateButtonCssVar } from './lib/utils/generateButtonCssVar';
 import { useActiveIndicator } from '../../lib/hooks/useActiveIndicator/useActiveIndicator';
 import { Loader } from '../loader/loader';
+import { IconWrapper } from './ui/iconWrapper';
 
 export const Button = (props: ButtonProps) => {
     const {
@@ -43,12 +44,20 @@ export const Button = (props: ButtonProps) => {
                     />
                 )
             }
-            <div className={clsx(s['icon-wrapper'], s[`icon-wrapper_align--${iconAlignment}`])}>
+            <IconWrapper
+                createWrapper={!!Icon && !!text}
+                iconAlignment={iconAlignment}
+                justifyCenter={!SecondaryIcon}
+            >
                 { Icon ?? null }
-                <span>
-                    {text}
-                </span>
-            </div>
+                {
+                    text && (
+                        <span>
+                            {text}
+                        </span>
+                    )
+                }
+            </IconWrapper>
             { SecondaryIcon ?? null }
         </button>
     );

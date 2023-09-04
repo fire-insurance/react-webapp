@@ -1,0 +1,25 @@
+@import '@/app/styles';
+
+.sidebar {
+  display: grid;
+  grid-template-rows: 1fr auto;
+  height: calc(100vh - $header-height);
+  width: $sidebar-width;
+  position: relative;
+  background-color: $grayscale-2;
+  border: solid $grayscale-4;
+  border-width: 1px 1px 0 0;
+  padding: 16px;
+  transition: width $default-transition;
+
+  &--collapsed {
+    width: $sidebar-width-collapsed;
+  }
+}
+
+.controls {
+  @include flex-col(12px);
+
+  border-top: 1px solid $grayscale-4;
+  padding-top: 12px;
+}

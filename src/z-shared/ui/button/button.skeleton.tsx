@@ -3,6 +3,7 @@ import clsx from 'clsx';
 import { BaseButtonProps, ButtonSize, ButtonVariant } from './types/buttonTypes';
 import { ParagraphSkeleton, Skeleton, SkeletonVariant } from '../skeleton';
 import { AppTypography } from '@/z-shared/types/appTypography';
+import { IconWrapper } from './ui/iconWrapper';
 
 type BooleanSkeletonButtonProps = 'icon' | 'text' | 'secondaryIcon';
 type ButtonSkeletonProps = Omit<BaseButtonProps, BooleanSkeletonButtonProps | 'showLoader' | 'theme'>
@@ -27,7 +28,10 @@ export const ButtonSkeleton = (props: ButtonSkeletonProps) => {
                 },
             )}
         >
-            <div className={clsx(s['icon-wrapper'], s[`icon-wrapper_align--${iconAlignment}`])}>
+            <IconWrapper
+                createWrapper={icon && text}
+                iconAlignment={iconAlignment}
+            >
                 {
                     icon && (
                         <Skeleton
@@ -49,7 +53,7 @@ export const ButtonSkeleton = (props: ButtonSkeletonProps) => {
                         />
                     )
                 }
-            </div>
+            </IconWrapper>
             {
                 secondaryIcon && (
                     <Skeleton

@@ -1,0 +1,15 @@
+@import '@/app/styles';
+
+.icon-wrapper {
+  @include flex-row-center(8px);
+
+  width: 100%;
+
+  &--center {
+    justify-content: center;
+  }
+
+  &_align--right {
+    flex-direction: row-reverse;
+  }
+}

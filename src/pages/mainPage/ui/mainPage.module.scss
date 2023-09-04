@@ -2,8 +2,6 @@
 
 .container {
   @include flex-col(16px);
-
-  padding: 24px
 }
 
 .row {

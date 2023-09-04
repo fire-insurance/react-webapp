@@ -1,15 +1,15 @@
 import { Theme, useTheme } from '@/app/providers/themeProvider';
-import s from './themeSwitcher.module.scss';
 import { WithClassName } from '@/z-shared/types/withClassname';
-import clsx from 'clsx';
 import Dark from '@/z-shared/assets/icons/moon.svg';
 import Light from '@/z-shared/assets/icons/brightness.svg';
 import Black from '@/z-shared/assets/icons/black-hole.svg';
-import { Button, ButtonSize, ButtonVariant } from '@/z-shared/ui/button';
+import { Button, ButtonVariant } from '@/z-shared/ui/button';
 
-interface ThemeSwitcherProps extends WithClassName {}
+interface ThemeSwitcherProps extends WithClassName {
+    collapsed: boolean;
+}
 
-export const ThemeSwitcher = ({ className }: ThemeSwitcherProps) => {
+export const ThemeSwitcher = ({ className, collapsed }: ThemeSwitcherProps) => {
     const { toggleTheme, theme } = useTheme();
 
     const [ Icon, text ] = (() => {
@@ -24,15 +24,12 @@ export const ThemeSwitcher = ({ className }: ThemeSwitcherProps) => {
     })();
 
     return (
-        <div className={clsx(s['container'], className)}>
-
-            <Button
-                variant={ButtonVariant.THIN}
-                icon={<Icon/>}
-                onClick={toggleTheme}
-                text={text}
-                size={ButtonSize.S}
-            />
-        </div>
+        <Button
+            variant={ButtonVariant.GHOST}
+            icon={<Icon/>}
+            onClick={toggleTheme}
+            text={collapsed ? undefined : text}
+            className={className}
+        />
     );
 };

@@ -3,6 +3,7 @@
 @import 'colors/generator';
 @import 'colors/map';
 @import 'font/fontMap';
+@import 'variables/transitions.scss';
 @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700;800;900&display=swap');
 
 .app {
@@ -11,4 +12,22 @@
   background-color: $grayscale-1;
   color: $grayscale-10;
   min-height: 100vh;
+}
+
+.layout {
+  display: flex;
+}
+
+.page-wrapper {
+  flex-grow: 1;
+  padding: 24px;
+}
+
+.flipabble {
+  transition: transform $default-transition;
+  transform: rotate(0);
+
+  &--flipped {
+    transform: rotate(180deg);
+  }
 }

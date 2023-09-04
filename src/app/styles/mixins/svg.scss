@@ -6,7 +6,7 @@
 
 @mixin size-svg($height, $width: $height) {
   svg {
-    height: $height;
-    width: $width;
+    min-height: $height;
+    min-width: $width;
   }
 }
