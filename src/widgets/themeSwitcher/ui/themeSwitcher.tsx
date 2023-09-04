@@ -3,7 +3,8 @@ import { WithClassName } from '@/z-shared/types/withClassname';
 import Dark from '@/z-shared/assets/icons/moon.svg';
 import Light from '@/z-shared/assets/icons/brightness.svg';
 import Black from '@/z-shared/assets/icons/black-hole.svg';
-import { Button, ButtonVariant } from '@/z-shared/ui/button';
+import { ButtonVariant } from '@/z-shared/ui/button';
+import { CollapsableButton } from '@/z-shared/ui/collapsableButton';
 
 interface ThemeSwitcherProps extends WithClassName {
     collapsed: boolean;
@@ -24,11 +25,12 @@ export const ThemeSwitcher = ({ className, collapsed }: ThemeSwitcherProps) => {
     })();
 
     return (
-        <Button
+        <CollapsableButton
+            collapsed={collapsed}
             variant={ButtonVariant.GHOST}
             icon={<Icon/>}
             onClick={toggleTheme}
-            text={collapsed ? undefined : text}
+            text={text}
             className={className}
         />
     );
