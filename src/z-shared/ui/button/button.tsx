@@ -6,7 +6,6 @@ import { generateButtonCssVar } from './lib/utils/generateButtonCssVar';
 import { useActiveIndicator } from '../../lib/hooks/useActiveIndicator/useActiveIndicator';
 import { Loader } from '../loader/loader';
 
-// 4) Скелетон
 export const Button = (props: ButtonProps) => {
     const {
         className, variant = ButtonVariant.PRIMARY, size = ButtonSize.L, theme, iconAlignment = 'left',

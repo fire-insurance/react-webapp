@@ -14,7 +14,7 @@ export enum ButtonSize {
     S = 's',
 }
 
-export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+export interface BaseButtonProps {
     variant?: ButtonVariant;
     text?: string;
     icon?: JSX.Element;
@@ -25,6 +25,8 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
     showLoader?: boolean;
     fillContainer?: boolean;
 }
+
+export type ButtonProps = BaseButtonProps & ButtonHTMLAttributes<HTMLButtonElement>;
 
 export interface ButtonCSSProperties extends CSSProperties {
     '--content-color': string;
