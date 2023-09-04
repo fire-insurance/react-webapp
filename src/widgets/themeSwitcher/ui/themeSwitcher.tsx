@@ -5,6 +5,7 @@ import clsx from 'clsx';
 import Dark from '@/z-shared/assets/icons/moon.svg';
 import Light from '@/z-shared/assets/icons/brightness.svg';
 import Black from '@/z-shared/assets/icons/black-hole.svg';
+import { Button, ButtonSize, ButtonVariant } from '@/z-shared/ui/button';
 
 interface ThemeSwitcherProps extends WithClassName {}
 
@@ -24,10 +25,14 @@ export const ThemeSwitcher = ({ className }: ThemeSwitcherProps) => {
 
     return (
         <div className={clsx(s['container'], className)}>
-            <Icon/>
-            <button onClick={toggleTheme}>
-                {text}
-            </button>
+
+            <Button
+                variant={ButtonVariant.THIN}
+                icon={<Icon/>}
+                onClick={toggleTheme}
+                text={text}
+                size={ButtonSize.S}
+            />
         </div>
     );
 };

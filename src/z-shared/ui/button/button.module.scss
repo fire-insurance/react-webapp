@@ -1,7 +1,7 @@
 @import '@/app/styles';
 
 .button {
-  @include flex-row-center(12px);
+  @include flex-row-center(8px);
 
   --padding-L: 0 20px;
   --padding-S: 0 12px;
@@ -41,7 +41,7 @@
   }
 
   .icon-wrapper {
-    @include flex-row-center(12px);
+    @include flex-row-center(8px);
 
     &_align--right {
       flex-direction: row-reverse;

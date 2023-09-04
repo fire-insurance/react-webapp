@@ -21,7 +21,6 @@ const MainPage = () => {
                     text={true}
                     icon={true}
                     secondaryIcon={true}
-                    variant={ButtonVariant.FLAT}
                 />
                 <ButtonSkeleton
                     text={true}
