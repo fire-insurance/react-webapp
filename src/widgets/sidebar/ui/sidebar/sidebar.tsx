@@ -7,7 +7,7 @@ import AngleLeft from '@/z-shared/assets/icons/angle-left.svg';
 import { ThemeSwitcher } from '@/widgets/themeSwitcher';
 import { CollapsableButton } from '@/z-shared/ui/collapsableButton';
 import { useTranslation } from 'react-i18next';
-import { LanguageSwitcher } from '@/widgets/languageSwitcher/ui/languageSwitcher';
+import { LanguageSwitcher } from '@/widgets/languageSwitcher';
 
 interface SidebarProps extends WithClassName {}
 
