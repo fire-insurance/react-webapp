@@ -35,7 +35,7 @@
   }
 
   &:disabled {
-    opacity: 40%;
+    opacity: 0.4;
     cursor: default;
     filter: saturate(60%);
   }
@@ -90,6 +90,7 @@
   &_variant--flat,
   &_variant--thin {
     transition: filter $default-transition;
+
     &:active {
       filter: brightness(0.8);
     }
@@ -99,6 +100,7 @@
     div {
       background-color: var(--content-color);
     }
+
     transition: opacity $default-transition;
     transform: scale(0.25) translate(-300%, -350%);
     height: 20px;
@@ -112,6 +114,7 @@
     > :not(.button-loader) {
       opacity: 0;
     }
+
     animation: oscillating 2s ease infinite;
   }
 }
@@ -130,6 +133,7 @@
         min-height: 40px;
         max-height: 40px;
       }
+
       &--s {
         padding: var(--padding-S);
         min-height: 32px;
@@ -149,6 +153,7 @@
         min-height: 20px;
         max-height: 20px;
       }
+
       &--s {
         min-height: 16px;
         max-height: 16px;

@@ -3,12 +3,22 @@
   margin: 0;
   border: 0;
   box-sizing: border-box;
-  font-family: 'Rubik', sans-serif;
+  font-family: Rubik, sans-serif;
 
   &::before,
   &::after {
     box-sizing: border-box;
   }
+}
+
+input,
+button,
+textarea,
+select,
+a {
+  font: inherit;
+  color: inherit;
+  outline: none;
 }
 
 :focus,
@@ -43,16 +53,6 @@ body,
   min-width: 100vw;
   text-size-adjust: 100%;
   -webkit-tap-highlight-color: transparent;
-}
-
-input,
-button,
-textarea,
-select,
-a {
-  font: inherit;
-  color: inherit;
-  outline: none;
 }
 
 input ::-ms-clear {
@@ -93,5 +93,5 @@ input[type='number'] {
 
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
+  appearance: none;
 }

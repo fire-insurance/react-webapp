@@ -6,7 +6,8 @@
   color: $grayscale-9;
   transition: color $default-transition;
 
-  &:hover, &:focus {
+  &:hover,
+  &:focus {
     color: $accent-1;
   }
 

@@ -1,6 +1,9 @@
+/* stylelint-disable property-no-unknown */
+/* stylelint-disable property-case */
 @import 'variables';
 
+/* stylelint-disable-next-line selector-pseudo-class-no-unknown */
 :export {
-    HEADER_HEIGHT: $header-height;
-    APP_TRANSITION: $app-transition;
+  HEADER_HEIGHT: $header-height;
+  APP_TRANSITION: $app-transition;
 }

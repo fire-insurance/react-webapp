@@ -1,4 +1,5 @@
 @mixin line-overflow($lines-count) {
+  /* stylelint-disable-next-line value-no-vendor-prefix */
   display: -webkit-box;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -14,7 +15,7 @@
 }
 
 @mixin with-alpha-background($color, $alpha) {
-  &:before {
+  &::before {
     content: '';
     width: 100%;
     height: 100%;
@@ -31,5 +32,6 @@
 // этот миксин (должен) фиксить эту проблему
 @mixin mobile-100vh() {
   height: 100vh;
+  /* stylelint-disable-next-line value-no-vendor-prefix */
   height: -webkit-fill-available;
 }
