@@ -29,7 +29,7 @@ export const ButtonSkeleton = (props: ButtonSkeletonProps) => {
             )}
         >
             <IconWrapper
-                createWrapper={icon && text}
+                createWrapper={!!icon && !!text}
                 iconAlignment={iconAlignment}
             >
                 {

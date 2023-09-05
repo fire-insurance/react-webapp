@@ -20,7 +20,7 @@ export const buildWebpackConfig = (options: BuildOptions): Configuration => {
             rules: buildLoaders(options),
         },
         resolve: buildResolvers(options),
-        plugins: buildPlugins(paths),
+        plugins: buildPlugins(options),
         devtool: isDevelopment ? 'inline-source-map' : undefined,
         devServer: isDevelopment ? buildDevServer(options) : undefined,
     };

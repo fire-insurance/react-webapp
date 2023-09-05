@@ -12,7 +12,7 @@ import { getInteractionEventKeys } from './utils/getInteractionEventKeys';
  * Элемент, для которого передается ref должен иметь position: relative
  */
 export const useActiveIndicator = <T extends HTMLElement>(disabled = false) => {
-    const elementRef = useRef<T | null>();
+    const elementRef = useRef<T | null>(null);
     const activeIndicatorSet = useRef<Set<HTMLDivElement>>(new Set());
     const interactionEventKeys = useRef(getInteractionEventKeys());
     const disabledRef = useRef(disabled);
@@ -29,7 +29,7 @@ export const useActiveIndicator = <T extends HTMLElement>(disabled = false) => {
         elementRef.current.addEventListener(initialEventKey, appendIndicator, { passive: true });
 
         return () => {
-            elementRef.current.removeEventListener(initialEventKey, appendIndicator);
+            elementRef.current && elementRef.current.removeEventListener(initialEventKey, appendIndicator);
         };
     }, []);
 
@@ -42,7 +42,7 @@ export const useActiveIndicator = <T extends HTMLElement>(disabled = false) => {
     const appendIndicator = (e: ScreenEvent) => {
         if (disabledRef.current) return;
 
-        const element = elementRef!.current;
+        const element = elementRef!.current!;
         const { x, y } = element.getBoundingClientRect();
         const { x: eventX, y: eventY } = getScreenEventPosition(e);
 

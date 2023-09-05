@@ -26,7 +26,7 @@ const iterateOverTheme = (currentTheme: Theme): Theme => {
 export const useTheme = (): UseThemeResult => {
     const { theme, setTheme } = useContext(ThemeContext);
 
-    const toggleTheme = () => setTheme(prevState => iterateOverTheme(prevState));
+    const toggleTheme = () => setTheme?.(prevState => iterateOverTheme(prevState));
 
-    return { theme, toggleTheme };
+    return { theme: theme || Theme.BLACK, toggleTheme };
 };
