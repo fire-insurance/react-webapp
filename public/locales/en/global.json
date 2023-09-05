@@ -1,12 +1,13 @@
 {
-    "collapse": "Collapse",
-    "mainPage": "Main",
-    "aboutPage": "About",
-    "theme": "Theme",
-    "toggleLang": "Toggle language",
-    "themeType": {
-        "light": "Light",
-        "dark": "Dark",
-        "black": "Black"
-    }
+  "404": "Page not found",
+  "collapse": "Collapse",
+  "mainPage": "Main",
+  "aboutPage": "About",
+  "theme": "Theme",
+  "toggleLang": "Toggle language",
+  "themeType": {
+    "light": "Light",
+    "dark": "Dark",
+    "black": "Black"
+  }
 }
