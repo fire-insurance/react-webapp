@@ -6,11 +6,13 @@ import { ButtonVariant } from '@/z-shared/ui/button';
 import AngleLeft from '@/z-shared/assets/icons/angle-left.svg';
 import { ThemeSwitcher } from '@/widgets/themeSwitcher';
 import { CollapsableButton } from '@/z-shared/ui/collapsableButton';
+import { useTranslation } from 'react-i18next';
 
 interface SidebarProps extends WithClassName {}
 
 export const Sidebar = ({ className }: SidebarProps) => {
     const [ collapsed, , , toggle ] = useBooleanState(false);
+    const { t, i18n } = useTranslation();
 
     return (
         <div
@@ -18,11 +20,17 @@ export const Sidebar = ({ className }: SidebarProps) => {
         >
             <div/>
             <div className={s['controls']}>
+                <CollapsableButton
+                    variant={ButtonVariant.GHOST}
+                    collapsed={collapsed}
+                    text={t('toggleLang')}
+                    onClick={() => i18n.changeLanguage(i18n.language === 'ru' ? 'en' : 'ru')}
+                />
                 <ThemeSwitcher collapsed={collapsed}/>
                 <CollapsableButton
                     collapsed={collapsed}
                     variant={ButtonVariant.GHOST}
-                    text={'Свернуть'}
+                    text={t('collapse')}
                     onClick={toggle}
                     icon={(
                         <AngleLeft

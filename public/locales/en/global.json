@@ -1,0 +1,12 @@
+{
+    "collapse": "Collapse",
+    "mainPage": "Main",
+    "aboutPage": "About",
+    "theme": "Theme",
+    "toggleLang": "Toggle language",
+    "themeType": {
+        "light": "Light",
+        "dark": "Dark",
+        "black": "Black"
+    }
+}

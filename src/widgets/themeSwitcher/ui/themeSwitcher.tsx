@@ -5,6 +5,7 @@ import Light from '@/z-shared/assets/icons/brightness.svg';
 import Black from '@/z-shared/assets/icons/black-hole.svg';
 import { ButtonVariant } from '@/z-shared/ui/button';
 import { CollapsableButton } from '@/z-shared/ui/collapsableButton';
+import { useTranslation } from 'react-i18next';
 
 interface ThemeSwitcherProps extends WithClassName {
     collapsed: boolean;
@@ -12,15 +13,16 @@ interface ThemeSwitcherProps extends WithClassName {
 
 export const ThemeSwitcher = ({ className, collapsed }: ThemeSwitcherProps) => {
     const { toggleTheme, theme } = useTheme();
+    const { t } = useTranslation();
 
-    const [ Icon, text ] = (() => {
+    const Icon = (() => {
         switch (theme) {
             case Theme.LIGHT:
-                return [ Light, 'Светлая' ];
+                return Light;
             case Theme.DARK:
-                return [ Dark, 'Темная' ];
+                return Dark;
             case Theme.BLACK:
-                return [ Black, 'Чёрная' ];
+                return Black;
         }
     })();
 
@@ -30,7 +32,7 @@ export const ThemeSwitcher = ({ className, collapsed }: ThemeSwitcherProps) => {
             variant={ButtonVariant.GHOST}
             icon={<Icon/>}
             onClick={toggleTheme}
-            text={text}
+            text={`${t(`themeType.${theme}`)} ${t('theme').toLowerCase()}`}
             className={className}
         />
     );

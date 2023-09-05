@@ -1,0 +1,12 @@
+{
+    "collapse": "Свернуть",
+    "mainPage": "Главная",
+    "aboutPage": "О нас",
+    "theme": "Тема",
+    "toggleLang": "Переключить язык",
+    "themeType": {
+        "light": "Светлая",
+        "dark": "Темная",
+        "black": "Чёрная"
+    }
+}
