@@ -2,6 +2,7 @@ import { DefinePlugin, ProgressPlugin, WebpackPluginInstance } from 'webpack';
 import HTMLWebpackPlugin from 'html-webpack-plugin';
 import MiniCSSExtractPlugin from 'mini-css-extract-plugin';
 import { BuildOptions } from './types/config';
+import ReactRefreshPlugin from '@pmmmwh/react-refresh-webpack-plugin';
 
 export const buildPlugins = ({ paths, isDevelopment }: BuildOptions): WebpackPluginInstance[] => [
     new HTMLWebpackPlugin({ template: paths.html }),
@@ -13,4 +14,5 @@ export const buildPlugins = ({ paths, isDevelopment }: BuildOptions): WebpackPlu
     new DefinePlugin({
         __IS_DEV__: JSON.stringify(isDevelopment),
     }),
+    new ReactRefreshPlugin(),
 ];
