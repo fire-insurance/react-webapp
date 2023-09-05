@@ -9,6 +9,17 @@ export const buildLoaders = ({ isDevelopment }: BuildOptions): RuleSetRule[] => 
         use: [ { loader: '@svgr/webpack', options: { icon: true } } ],
     };
 
+    const babelLoader: RuleSetRule = {
+        test: /\.(js|jsx|tsx)$/,
+        exclude: /node_modules/,
+        use: {
+            loader: 'babel-loader',
+            options: {
+                presets: [ '@babel/preset-env' ],
+            },
+        },
+    };
+
     const imageLoader: RuleSetRule = {
         test: /\.(png|jpe?g|gif)$/,
         use: [
@@ -43,5 +54,5 @@ export const buildLoaders = ({ isDevelopment }: BuildOptions): RuleSetRule[] => 
         ],
     };
 
-    return [ typescriptLoader, cssLoader, svgLoader, imageLoader ];
+    return [ babelLoader, typescriptLoader, cssLoader, svgLoader, imageLoader ];
 };
