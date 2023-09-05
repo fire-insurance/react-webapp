@@ -12,7 +12,7 @@ export const Header = ({ className }: HeaderProps) => {
 
     return (
         <header className={clsx(s['container'], className)}>
-            <div>Приложение</div>
+            <div/>
             <nav className={s['nav']}>
                 <AppLink to={AppRoutes.MAIN}>
                     {t('mainPage')}

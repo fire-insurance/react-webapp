@@ -8,7 +8,8 @@
     },
     "extends": [
       "plugin:react/recommended",
-      "plugin:react/jsx-runtime"
+      "plugin:react/jsx-runtime",
+      "plugin:i18next/recommended"
     ],
     "parser": "@typescript-eslint/parser",
     "parserOptions": {
@@ -20,7 +21,8 @@
     },
     "plugins": [
       "react",
-      "@typescript-eslint"
+      "@typescript-eslint",
+      "i18next"
     ],
     "settings": {
       "react": {
@@ -28,6 +30,7 @@
       }
     },
     "rules": {
+      "i18next/no-literal-string": ["error", { "markupOnly": true }],
       // Possible Problems
       // Не форматируется автоматически
       "no-duplicate-case": [ "warn" ],
