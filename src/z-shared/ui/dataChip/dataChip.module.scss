@@ -1,0 +1,57 @@
+@import '@/app/styles';
+
+$chip-variant: (
+  info: $grayscale-8,
+  success: $green-1,
+  warning: $orange-1,
+  error: $red-1,
+);
+
+@mixin chip-sizes {
+  @include size-svg(var(--icon-size));
+
+  display: grid;
+  grid-template-columns: var(--icon-size) 1fr;
+  column-gap: 4px;
+
+  &--l {
+    @extend %caption;
+
+    --icon-size: 16px;
+  }
+
+  &--s {
+    @extend %caption-mini;
+
+    --icon-size: 14px;
+  }
+}
+
+.chip {
+  @include chip-sizes;
+
+  transition: color $default-transition;
+
+  svg {
+    transition: fill $default-transition, transform $default-transition;
+  }
+
+  @each $variant, $color in $chip-variant {
+    &--#{'' + $variant} {
+      color: $color;
+    }
+  }
+
+  &--warning svg {
+    transform: rotate(180deg);
+  }
+}
+
+.chip-skeleton {
+  @include chip-sizes;
+
+  .icon-skeleton {
+    height: var(--icon-size);
+    width: var(--icon-size);
+  }
+}
