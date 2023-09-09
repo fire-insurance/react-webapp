@@ -145,6 +145,7 @@
       "max-statements-per-line": [ "warn" ],
 
       //~~~~REACT~~~~
+      "react/display-name": "off",
       "react/no-string-refs": [ "warn" ],
       "react/no-find-dom-node": [ "warn" ],
       // явно задаем boolean пропс
