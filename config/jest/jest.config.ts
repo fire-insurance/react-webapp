@@ -15,6 +15,12 @@ export default {
         'node_modules',
     ],
 
+    modulePaths: [
+        '<rootDir>src',
+    ],
+
+    setupFilesAfterEnv: [ '<rootDir>/config/jest/setupTests.ts' ],
+
     // An array of file extensions your modules use
     moduleFileExtensions: [
         'js',
