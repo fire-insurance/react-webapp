@@ -3,6 +3,7 @@ import {
     LOCAL_STORAGE_THEME_KEY, Theme,
     ThemeContext, ThemeContextProps,
 } from '../lib/themeContext';
+import clsx from 'clsx';
 
 const defaultTheme = localStorage.getItem(LOCAL_STORAGE_THEME_KEY) as Theme ?? Theme.DARK;
 
@@ -16,7 +17,9 @@ export const ThemeProvider: FC = ({ children }) => {
 
     return (
         <ThemeContext.Provider value={memoProps}>
-            {children}
+            <main className={clsx('app', `${theme}-theme`)}>
+                {children}
+            </main>
         </ThemeContext.Provider>
     );
 };

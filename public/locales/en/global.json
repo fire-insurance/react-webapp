@@ -9,5 +9,7 @@
     "light": "Light",
     "dark": "Dark",
     "black": "Black"
-  }
+  },
+  "unexpectedError": "An unexpected error has occured",
+  "refreshPage": "Refresh page"
 }

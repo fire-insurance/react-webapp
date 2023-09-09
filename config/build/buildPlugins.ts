@@ -14,5 +14,5 @@ export const buildPlugins = ({ paths, isDevelopment }: BuildOptions): WebpackPlu
     new DefinePlugin({
         __IS_DEV__: JSON.stringify(isDevelopment),
     }),
-    new ReactRefreshPlugin(),
+    new ReactRefreshPlugin({ overlay: false }),
 ];

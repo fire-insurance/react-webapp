@@ -1,0 +1,16 @@
+@import '@/app/styles';
+
+.container {
+  display: grid;
+  place-items: center;
+  height: 100vh;
+}
+
+.content {
+  @include flex-col(16px);
+  @include card-shadow;
+
+  background-color: $grayscale-card;
+  padding: 32px 24px;
+  border-radius: 8px;
+}
