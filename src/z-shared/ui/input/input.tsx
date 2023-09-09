@@ -1,8 +1,8 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { ButtonHTMLAttributes, HTMLInputTypeAttribute, InputHTMLAttributes, forwardRef, useRef } from 'react';
 import s from './input.module.scss';
 import { BaseButtonProps, ButtonVariant } from '../button/types/buttonTypes';
-import { v4 as uuid, v5 } from 'uuid';
-import clsx from 'clsx';
+import { v4 as uuid } from 'uuid';
 import { Button } from '../button';
 
 type NativeInputProps = InputHTMLAttributes<HTMLInputElement>
