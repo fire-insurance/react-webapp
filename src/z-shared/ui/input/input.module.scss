@@ -1,1 +1,39 @@
 @import '@/app/styles';
+
+$input-height: 40px;
+$input-side-pad: 12px;
+
+.container {
+  @include flex-col(4px);
+}
+
+.input-wrapper {
+  @include flex-row-center;
+
+  min-height: $input-height;
+  max-height: $input-height;
+  border-radius: 6px;
+  padding-left: $input-side-pad;
+
+  &--primary {
+    background-color: $grayscale-1;
+  }
+
+  &--secondary {
+    background-color: $grayscale-2;
+  }
+}
+
+.input-icon-wrapper {
+  @include size-svg(20px);
+  @include color-svg($grayscale-8);
+
+  padding-right: 8px;
+}
+
+.input {
+  background-color: transparent;
+  flex-grow: 1;
+  height: $input-height;
+  padding-right: $input-side-pad;
+}
