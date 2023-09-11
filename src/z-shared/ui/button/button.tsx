@@ -10,7 +10,7 @@ import { IconWrapper } from './ui/iconWrapper';
 export const Button = (props: ButtonProps) => {
     const {
         className, variant = ButtonVariant.PRIMARY, size = ButtonSize.L, theme, iconAlignment = 'left',
-        icon: Icon, secondaryIcon: SecondaryIcon, fillContainer, onClick, showLoader, text, ...rest
+        icon: Icon = null, secondaryIcon: SecondaryIcon, fillContainer, onClick, showLoader, text, ...rest
     } = props;
 
     const disableActiveIndicator = showLoader || variant === ButtonVariant.FLAT || variant === ButtonVariant.THIN;
@@ -49,7 +49,7 @@ export const Button = (props: ButtonProps) => {
                 iconAlignment={iconAlignment}
                 justifyCenter={!SecondaryIcon}
             >
-                { Icon ?? null }
+                { typeof Icon === 'function' ? <Icon/> : Icon }
                 {
                     text && (
                         <span>

@@ -48,7 +48,7 @@ export const generateButtonCssVar = (variant: ButtonVariant, theme?: AccentColor
             const contentColorSet = theme ?? AppColors.GRAYSCALE;
             const colorModifierMap: ColorModifier =
                 colorSet === AppColors.SECONDARY
-                    ? { bgHover: 2, content: 9, contentHover: 10 }
+                    ? { bgHover: 2, content: 8, contentHover: 10 }
                     : { bgHover: 6, content: 1, contentHover: 1 };
 
             return constructVarObject(colorSet as AppColors, colorModifierMap, contentColorSet as AppColors);

@@ -12,7 +12,7 @@ type InputType = Extract<HTMLInputTypeAttribute, 'email' | 'number' | 'password'
 interface InputProps extends Omit<NativeInputProps, 'type'>{
     label?: string;
     background?: 'primary' | 'secondary';
-    icon?: JSX.Element;
+    icon?: JSX.Element | SVGComponent;
     button?: Pick<BaseButtonProps, 'icon'> & ButtonHTMLAttributes<HTMLButtonElement>;
     helperText?: string;
     errorText?: string;
@@ -20,7 +20,7 @@ interface InputProps extends Omit<NativeInputProps, 'type'>{
 }
 
 export const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
-    const { label, background = 'primary', icon = null, button, helperText, errorText, id: propId, ...rest } = props;
+    const { label, background = 'primary', icon: Icon = null, button, helperText, errorText, id: propId, ...rest } = props;
     const id = useRef(propId ?? uuid());
 
     const inputDataChip = (() => {
@@ -40,9 +40,9 @@ export const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
                     )
                 } */}
                 {
-                    icon && (
+                    Icon && (
                         <div className={s['input-icon-wrapper']}>
-                            {icon}
+                            { typeof Icon === 'function' ? <Icon/> : Icon }
                         </div>
                     )
                 }

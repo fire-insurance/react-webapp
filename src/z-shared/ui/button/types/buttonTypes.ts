@@ -17,7 +17,7 @@ export enum ButtonSize {
 export interface BaseButtonProps {
     variant?: ButtonVariant;
     text?: string;
-    icon?: JSX.Element;
+    icon?: JSX.Element | SVGComponent;
     secondaryIcon?: JSX.Element;
     iconAlignment?: 'left' | 'right';
     size?: ButtonSize;
