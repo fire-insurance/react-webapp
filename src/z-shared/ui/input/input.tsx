@@ -1,10 +1,11 @@
-import { ButtonHTMLAttributes, HTMLInputTypeAttribute, InputHTMLAttributes, forwardRef, useRef } from 'react';
+import { ButtonHTMLAttributes, HTMLInputTypeAttribute, InputHTMLAttributes, forwardRef, useEffect, useRef } from 'react';
 import s from './input.module.scss';
 import { BaseButtonProps, ButtonVariant } from '../button/types/buttonTypes';
 import { v4 as uuid } from 'uuid';
 import { Button } from '../button';
 import clsx from 'clsx';
 import { DataChip, DataChipSize, DataChipVariant } from '../dataChip';
+import { AnimateFunctionProps } from '@/z-shared/types/animateFunctionProps';
 
 type NativeInputProps = InputHTMLAttributes<HTMLInputElement>
 type InputType = Extract<HTMLInputTypeAttribute, 'email' | 'number' | 'password' | 'search' | 'text' | 'tel'>
@@ -19,9 +20,43 @@ interface InputProps extends Omit<NativeInputProps, 'type'>{
     type?: InputType;
 }
 
-export const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
-    const { label, background = 'primary', icon: Icon = null, button, helperText, errorText, id: propId, ...rest } = props;
+interface LabelAnimationKeyframe {
+    left: number;
+    top: number;
+}
+
+export const initialAnimationDuration = 150;
+export const labelAnimationId = 'labelAnimation';
+
+const labelAnimationOptions: KeyframeAnimationOptions = {
+    duration: initialAnimationDuration,
+    iterations: 1,
+    id: labelAnimationId,
+    fill: 'both',
+    easing: 'cubic-bezier(0, 0, 0.2, 1)',
+};
+
+const createLabelAnimationKeyframes = (from: LabelAnimationKeyframe, to: LabelAnimationKeyframe): Keyframe[] => [
+    { left: `calc(${from.left}px + 0.5ch - 1px)`, top: `${from.top}px` },
+    { left: `${to.left}px`, top: `${to.top}px` },
+];
+
+const legendAnimationKeyframes = [
+    { width: 'max-content', padding: '0 0.5ch' },
+    { width: '0', padding: '0' },
+];
+
+export const Input = forwardRef<HTMLInputElement, InputProps>((props, forwardedRef) => {
+    const {
+        label, background = 'primary', icon: Icon = null,
+        button, helperText, errorText, id: propId, ...rest
+    } = props;
     const id = useRef(propId ?? uuid());
+    const fieldsetRef = useRef<HTMLFieldSetElement | null>(null);
+    const legendRef = useRef<HTMLLegendElement | null>(null);
+    const labelRef = useRef<HTMLLabelElement | null>(null);
+    const inputRef = useRef<HTMLInputElement | null>(null);
+    const animationRef = useRef<Animation[]>([]);
 
     const inputDataChip = (() => {
         if (errorText) return { text: errorText, variant: DataChipVariant.ERROR };
@@ -29,30 +64,89 @@ export const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
         return null;
     })();
 
+    useEffect(() => {
+        const animation = createLabelAnimation();
+        if (!animation) return;
+
+        const appendedAnimation = labelRef.current?.animate(...animation);
+        const legendAnim = legendRef.current?.animate(legendAnimationKeyframes, labelAnimationOptions);
+
+        if (!appendedAnimation || !legendAnim) return;
+        appendedAnimation.finish();
+        legendAnim.finish();
+        animationRef.current = [ appendedAnimation, legendAnim ];
+    }, []);
+
+    const createLabelAnimation = (): AnimateFunctionProps | null => {
+        if (!inputRef.current || !fieldsetRef.current || !labelRef.current || !legendRef.current) return null;
+        const { x: fieldSetX } = fieldsetRef.current.getBoundingClientRect();
+        const { x: inputX, height: inputHeight } = inputRef.current.getBoundingClientRect();
+        const { height: labelHeight } = labelRef.current.getBoundingClientRect();
+        const { x: legendX } = legendRef.current.getBoundingClientRect();
+
+        const from: LabelAnimationKeyframe = { left: legendX - fieldSetX, top: -labelHeight / 2 };
+        const to: LabelAnimationKeyframe = { left: inputX - fieldSetX - 1, top: (inputHeight - labelHeight) / 2 };
+
+        const keyframes = createLabelAnimationKeyframes(from, to);
+
+        return [ keyframes, labelAnimationOptions ];
+    };
+
+    const animateFocus = () => {
+        if (!animationRef.current || !labelRef.current) return;
+        labelRef.current.classList.toggle(s['label--as-legend']);
+        animationRef.current.forEach(animation => animation.reverse());
+    };
+
     return (
         <div className={s['container']}>
-            <div className={clsx(s['input-wrapper'], s[`input-wrapper--${background}`])}>
-                {/* {
-                    label && (
-                        <legend className={s['legend']}>
-                            {label}
-                        </legend>
-                    )
-                } */}
+            <fieldset
+                className={s['fieldset']}
+                ref={fieldsetRef}
+            >
                 {
-                    Icon && (
-                        <div className={s['input-icon-wrapper']}>
-                            { typeof Icon === 'function' ? <Icon/> : Icon }
-                        </div>
+                    label && (
+                        <>
+                            <legend
+                                className={s['legend']}
+                                ref={legendRef}
+                            >
+                                {label}
+                            </legend>
+                            <label
+                                htmlFor={id.current}
+                                className={s['label']}
+                                ref={labelRef}
+                            >
+                                {label}
+                            </label>
+                        </>
                     )
                 }
-                <input
-                    className={s['input']}
-                    id={id.current}
-                    ref={ref}
-                    {...rest}
-                />
-                {
+                <div className={clsx(s['input-wrapper'], s[`input-wrapper--${background}`])}>
+                    {
+                        Icon && (
+                            <div className={s['input-icon-wrapper']}>
+                                { typeof Icon === 'function' ? <Icon/> : Icon }
+                            </div>
+                        )
+                    }
+                    <input
+                        className={s['input']}
+                        id={id.current}
+                        ref={node => {
+                            inputRef.current = node;
+                            if (forwardedRef) {
+                                typeof forwardedRef === 'function'
+                                    ? forwardedRef(node)
+                                    : forwardedRef.current = node;
+                            }
+                        }}
+                        onFocus={animateFocus}
+                        onBlur={animateFocus}
+                        {...rest}
+                    />
+                    {
                     button && (
                         <Button
                             variant={ButtonVariant.GHOST}
@@ -60,7 +154,8 @@ export const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
                         />
                     )
                 }
-            </div>
+                </div>
+            </fieldset>
             {
                 inputDataChip && (
                     <DataChip

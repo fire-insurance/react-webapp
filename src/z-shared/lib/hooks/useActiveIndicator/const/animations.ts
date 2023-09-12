@@ -1,4 +1,4 @@
-type AnimateFunctionProps = Parameters<HTMLElement['animate']>
+import { AnimateFunctionProps } from '@/z-shared/types/animateFunctionProps';
 
 const resultingOpacity = '10%';
 

@@ -7,6 +7,36 @@ $input-side-pad: 12px;
   @include flex-col(4px);
 }
 
+.fieldset {
+  border: 1px solid $grayscale-4;
+  border-radius: 6px;
+  transition: border-color $default-transition;
+  position: relative;
+
+  &:focus-within {
+    border-color: $accent-1;
+  }
+
+  .legend {
+    @extend %caption;
+
+    margin: 0 8px;
+    height: 1px;
+    opacity: 0;
+  }
+
+  .label {
+    @extend %text;
+
+    &--as-legend {
+      @extend %caption;
+    }
+
+    transition: font-size 150ms ease;
+    position: absolute;
+  }
+}
+
 .input-wrapper {
   @include flex-row-center;
 
@@ -33,6 +63,8 @@ $input-side-pad: 12px;
 }
 
 .input {
+  @extend %text;
+
   background-color: transparent;
   flex-grow: 1;
   height: $input-height;

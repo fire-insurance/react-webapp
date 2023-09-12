@@ -10,10 +10,14 @@ const MainPage = () => {
     return (
         <div className={s['container']}>
             {t('page')}
-            <Input background={'secondary'}/>
+            <Input
+                background={'secondary'}
+                label={'test'}
+            />
             <Input
                 background={'secondary'}
                 icon={Fire}
+                label={'test'}
             />
             <Input
                 background={'secondary'}
