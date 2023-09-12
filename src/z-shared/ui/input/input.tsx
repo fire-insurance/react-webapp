@@ -15,7 +15,7 @@ import { createRefCallbackForForwardedRef } from '@/z-shared/lib/utils/createRef
 export const Input = forwardRef<HTMLInputElement, InputProps>((props, forwardedRef) => {
     const {
         label, background = 'primary', icon: Icon = null,
-        button, helperText, errorText, id: propId, ...rest
+        button, helperText, errorText, id: propId, onBlur, onFocus, ...rest
     } = props;
     const id = useRef(propId ?? uuid());
     const fieldsetRef = useRef<HTMLFieldSetElement | null>(null);
@@ -108,8 +108,14 @@ export const Input = forwardRef<HTMLInputElement, InputProps>((props, forwardedR
                         className={s['input']}
                         id={id.current}
                         ref={createRefCallbackForForwardedRef(inputRef, forwardedRef)}
-                        onFocus={handleFocusEvent}
-                        onBlur={handleFocusEvent}
+                        onFocus={e => {
+                            handleFocusEvent(e);
+                            onFocus && onFocus(e);
+                        }}
+                        onBlur={e => {
+                            handleFocusEvent(e);
+                            onBlur && onBlur(e);
+                        }}
                         {...rest}
                     />
                     {

@@ -37,7 +37,10 @@
       {
         "markupOnly": true,
         "ignoreAttribute": [
-          "background"
+          "background",
+          "name",
+          "type",
+          "autoComplete"
         ]
       }
     ],
