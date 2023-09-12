@@ -3,19 +3,22 @@ import s from './mainPage.module.scss';
 import { Input } from '@/z-shared/ui/input';
 import Fire from '@/z-shared/assets/icons/fire.svg';
 import Info from '@/z-shared/assets/icons/info.svg';
+import { Button } from '@/z-shared/ui/button';
+import { type } from 'os';
 
 const MainPage = () => {
     const { t } = useTranslation('mainPage');
 
     return (
-        <div className={s['container']}>
+        <form className={s['container']}>
             {t('page')}
             <Input
                 background={'secondary'}
                 label={'test'}
-                defaultValue={'Omega'}
                 placeholder={'place'}
                 autoComplete={'email'}
+                name={'email'}
+                type={'email'}
             />
             <Input
                 background={'secondary'}
@@ -30,7 +33,11 @@ const MainPage = () => {
                 label={'gedrte'}
                 button={{ icon: Info }}
             />
-        </div>
+            <Button
+                type={'submit'}
+                text={'sumbit'}
+            />
+        </form>
     );
 };
 
