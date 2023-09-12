@@ -28,12 +28,21 @@ $input-side-pad: 12px;
   .label {
     @extend %text;
 
-    &--as-legend {
+    color: $grayscale-8;
+    transition: font-size 150ms ease, color 150ms ease;
+    position: absolute;
+  }
+
+  &--input-filled {
+    .label {
       @extend %caption;
+
+      color: $grayscale-9;
     }
 
-    transition: font-size 150ms ease;
-    position: absolute;
+    input::placeholder {
+      opacity: 1;
+    }
   }
 }
 
@@ -69,4 +78,10 @@ $input-side-pad: 12px;
   flex-grow: 1;
   height: $input-height;
   padding-right: $input-side-pad;
+
+  &::placeholder {
+    transition: opacity $default-transition;
+    color: $grayscale-6;
+    opacity: 0;
+  }
 }

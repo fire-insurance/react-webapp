@@ -13,15 +13,21 @@ const MainPage = () => {
             <Input
                 background={'secondary'}
                 label={'test'}
+                defaultValue={'Omega'}
+                placeholder={'place'}
+                autoComplete={'email'}
             />
             <Input
                 background={'secondary'}
                 icon={Fire}
                 label={'test'}
+                placeholder={'place'}
+
             />
             <Input
                 background={'secondary'}
                 icon={Fire}
+                label={'gedrte'}
                 button={{ icon: Info }}
             />
         </div>

@@ -1,11 +1,10 @@
-import { ButtonHTMLAttributes, HTMLInputTypeAttribute, InputHTMLAttributes, forwardRef, useEffect, useRef } from 'react';
+import { ButtonHTMLAttributes, FocusEvent, HTMLInputTypeAttribute, InputHTMLAttributes, forwardRef, useEffect, useRef } from 'react';
 import s from './input.module.scss';
 import { BaseButtonProps, ButtonVariant } from '../button/types/buttonTypes';
 import { v4 as uuid } from 'uuid';
 import { Button } from '../button';
 import clsx from 'clsx';
 import { DataChip, DataChipSize, DataChipVariant } from '../dataChip';
-import { AnimateFunctionProps } from '@/z-shared/types/animateFunctionProps';
 
 type NativeInputProps = InputHTMLAttributes<HTMLInputElement>
 type InputType = Extract<HTMLInputTypeAttribute, 'email' | 'number' | 'password' | 'search' | 'text' | 'tel'>
@@ -57,6 +56,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>((props, forwardedR
     const labelRef = useRef<HTMLLabelElement | null>(null);
     const inputRef = useRef<HTMLInputElement | null>(null);
     const animationRef = useRef<Animation[]>([]);
+    const isInputFilled = useRef<boolean>(!!rest.value || !!rest.defaultValue);
 
     const inputDataChip = (() => {
         if (errorText) return { text: errorText, variant: DataChipVariant.ERROR };
@@ -65,11 +65,23 @@ export const Input = forwardRef<HTMLInputElement, InputProps>((props, forwardedR
     })();
 
     useEffect(() => {
-        const animation = createLabelAnimation();
-        if (!animation) return;
+        const labelAnimationKeyframes = createLabelAnimation();
+        if (!labelAnimationKeyframes) return;
 
-        const appendedAnimation = labelRef.current?.animate(...animation);
-        const legendAnim = legendRef.current?.animate(legendAnimationKeyframes, labelAnimationOptions);
+        const [ labelKeyframes, legendKeyframes ] = (() => {
+            console.log(isInputFilled.current);
+
+            if (isInputFilled.current) {
+                fieldsetRef.current?.classList.toggle(s['fieldset--input-filled']);
+                return [ labelAnimationKeyframes.reverse(), [ ...legendAnimationKeyframes ].reverse() ];
+            }
+            return [ labelAnimationKeyframes, legendAnimationKeyframes ];
+        })();
+
+        console.log(labelKeyframes, legendKeyframes);
+
+        const appendedAnimation = labelRef.current?.animate(labelKeyframes, labelAnimationOptions);
+        const legendAnim = legendRef.current?.animate(legendKeyframes, labelAnimationOptions);
 
         if (!appendedAnimation || !legendAnim) return;
         appendedAnimation.finish();
@@ -77,7 +89,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>((props, forwardedR
         animationRef.current = [ appendedAnimation, legendAnim ];
     }, []);
 
-    const createLabelAnimation = (): AnimateFunctionProps | null => {
+    const createLabelAnimation = (): Keyframe[] | null => {
         if (!inputRef.current || !fieldsetRef.current || !labelRef.current || !legendRef.current) return null;
         const { x: fieldSetX } = fieldsetRef.current.getBoundingClientRect();
         const { x: inputX, height: inputHeight } = inputRef.current.getBoundingClientRect();
@@ -89,12 +101,14 @@ export const Input = forwardRef<HTMLInputElement, InputProps>((props, forwardedR
 
         const keyframes = createLabelAnimationKeyframes(from, to);
 
-        return [ keyframes, labelAnimationOptions ];
+        return keyframes;
     };
 
-    const animateFocus = () => {
-        if (!animationRef.current || !labelRef.current) return;
-        labelRef.current.classList.toggle(s['label--as-legend']);
+    const animateFocus = (e: FocusEvent<HTMLInputElement>) => {
+        isInputFilled.current = !!e.target.value;
+
+        if (!animationRef.current || !labelRef.current || isInputFilled.current) return;
+        fieldsetRef.current?.classList.toggle(s['fieldset--input-filled']);
         animationRef.current.forEach(animation => animation.reverse());
     };
 
