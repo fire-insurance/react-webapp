@@ -4,12 +4,12 @@ import { ButtonVariant } from '../button/types/buttonTypes';
 import { v4 as uuid } from 'uuid';
 import { Button } from '../button';
 import clsx from 'clsx';
-import { DataChip, DataChipSize, DataChipVariant } from '../dataChip';
 import { InputProps } from './types/inputTypes';
 import {
     legendAnimationKeyframes, labelAnimationOptions,
     createLabelAnimationKeyframes, LabelAnimationKeyframe,
 } from './lib/const/animations';
+import { InputDataChip } from './ui/inputDataChip/inputDataChip';
 
 export const Input = forwardRef<HTMLInputElement, InputProps>((props, forwardedRef) => {
     const {
@@ -22,26 +22,8 @@ export const Input = forwardRef<HTMLInputElement, InputProps>((props, forwardedR
     const labelRef = useRef<HTMLLabelElement | null>(null);
     const inputRef = useRef<HTMLInputElement | null>(null);
     const animationsRef = useRef<Animation[]>([]);
-    const dataChipRef = useRef<HTMLDivElement | null>(null);
     const isInputFilled = useRef<boolean>(!!rest.value || !!rest.defaultValue);
     const [ dataChipHeight, setDataChipHeight ] = useState(0);
-
-    const hasHelper = !!helperText || !!errorText;
-
-    const inputDataChip = (() => {
-        if (errorText) return { text: errorText, variant: DataChipVariant.ERROR };
-        if (helperText) return { text: helperText, variant: DataChipVariant.INFO };
-        return null;
-    })();
-
-    useEffect(() => {
-        if (!dataChipRef.current) {
-            setDataChipHeight(0);
-            return;
-        }
-        setDataChipHeight(dataChipRef.current.getBoundingClientRect().height);
-
-    }, [ helperText, errorText ]);
 
     useEffect(() => {
         const labelAnimationKeyframes = createLabelAnimation();
@@ -87,7 +69,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>((props, forwardedR
 
     return (
         <div
-            className={clsx(s['container'], hasHelper && s['container--with-helper'])}
+            className={clsx(s['container'], dataChipHeight && s['container--with-helper'])}
             style={{ '--data-chip-height': `${dataChipHeight}px` } as CSSProperties}
         >
             <fieldset
@@ -146,16 +128,11 @@ export const Input = forwardRef<HTMLInputElement, InputProps>((props, forwardedR
                 }
                 </div>
             </fieldset>
-            {
-                inputDataChip && (
-                    <DataChip
-                        variant={inputDataChip.variant}
-                        text={inputDataChip.text}
-                        size={DataChipSize.S}
-                        ref={dataChipRef}
-                    />
-                )
-            }
+            <InputDataChip
+                helperText={helperText}
+                errorText={errorText}
+                onHeightChange={setDataChipHeight}
+            />
         </div>
     );
 });
