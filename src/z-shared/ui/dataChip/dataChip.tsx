@@ -4,6 +4,7 @@ import CheckCircle from '@/z-shared/assets/icons/check-circle.svg';
 import s from './dataChip.module.scss';
 import clsx from 'clsx';
 import { DataChipSize, DataChipVariant } from './types/dataChipTypes';
+import { forwardRef } from 'react';
 
 interface DataChipProps {
     text: string;
@@ -12,7 +13,9 @@ interface DataChipProps {
     className?: string;
 }
 
-export const DataChip = ({ text, variant, size = DataChipSize.L, className }: DataChipProps) => {
+export const DataChip = forwardRef<HTMLDivElement, DataChipProps>((props, ref) => {
+    const { text, variant, size = DataChipSize.L, className } = props;
+
     const icon = (() => {
         switch (variant) {
             case DataChipVariant.ERROR:
@@ -25,11 +28,14 @@ export const DataChip = ({ text, variant, size = DataChipSize.L, className }: Da
     })();
 
     return (
-        <div className={clsx(s['chip'], s[`chip--${variant}`], s[`chip--${size}`], className)}>
+        <div
+            className={clsx(s['chip'], s[`chip--${variant}`], s[`chip--${size}`], className)}
+            ref={ref}
+        >
             {icon}
             <span>
                 {text}
             </span>
         </div>
     );
-};
+});

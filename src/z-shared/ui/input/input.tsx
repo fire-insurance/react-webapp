@@ -1,4 +1,4 @@
-import { ButtonHTMLAttributes, FocusEvent, HTMLInputTypeAttribute, InputHTMLAttributes, forwardRef, useEffect, useRef } from 'react';
+import { ButtonHTMLAttributes, CSSProperties, FocusEvent, HTMLInputTypeAttribute, InputHTMLAttributes, forwardRef, useEffect, useRef, useState } from 'react';
 import s from './input.module.scss';
 import { BaseButtonProps, ButtonVariant } from '../button/types/buttonTypes';
 import { v4 as uuid } from 'uuid';
@@ -56,7 +56,9 @@ export const Input = forwardRef<HTMLInputElement, InputProps>((props, forwardedR
     const labelRef = useRef<HTMLLabelElement | null>(null);
     const inputRef = useRef<HTMLInputElement | null>(null);
     const animationRef = useRef<Animation[]>([]);
+    const dataChipRef = useRef<HTMLDivElement | null>(null);
     const isInputFilled = useRef<boolean>(!!rest.value || !!rest.defaultValue);
+    const [ dataChipHeight, setDataChipHeight ] = useState(0);
 
     const hasHelper = !!helperText || !!errorText;
 
@@ -65,6 +67,15 @@ export const Input = forwardRef<HTMLInputElement, InputProps>((props, forwardedR
         if (helperText) return { text: helperText, variant: DataChipVariant.INFO };
         return null;
     })();
+
+    useEffect(() => {
+        if (!dataChipRef.current) {
+            setDataChipHeight(0);
+            return;
+        }
+        setDataChipHeight(dataChipRef.current.getBoundingClientRect().height);
+
+    }, [ helperText, errorText ]);
 
     useEffect(() => {
         const labelAnimationKeyframes = createLabelAnimation();
@@ -111,7 +122,10 @@ export const Input = forwardRef<HTMLInputElement, InputProps>((props, forwardedR
     };
 
     return (
-        <div className={clsx(s['container'], hasHelper && s['container--with-helper'])}>
+        <div
+            className={clsx(s['container'], hasHelper && s['container--with-helper'])}
+            style={{ '--data-chip-height': `${dataChipHeight}px` } as CSSProperties}
+        >
             <fieldset
                 className={clsx(s['fieldset'], errorText && s['fieldset--error'])}
                 ref={fieldsetRef}
@@ -174,6 +188,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>((props, forwardedR
                         variant={inputDataChip.variant}
                         text={inputDataChip.text}
                         size={DataChipSize.S}
+                        ref={dataChipRef}
                     />
                 )
             }
