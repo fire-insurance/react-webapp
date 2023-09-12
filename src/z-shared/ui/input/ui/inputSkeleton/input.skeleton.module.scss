@@ -1,0 +1,36 @@
+@import '@/app/styles';
+
+.skeleton {
+  background-color: $grayscale-3;
+  border: 1px solid $grayscale-4;
+  border-radius: 6px;
+  min-height: 42px;
+  max-height: 42px;
+  animation: oscillating 2s ease infinite;
+  position: relative;
+
+  .legend {
+    margin-left: 8px;
+    min-width: 40px;
+    max-width: 80px;
+    width: 65%;
+    padding: 0 4px;
+    height: 1px;
+  }
+
+  .label {
+    @extend %caption-mini;
+
+    position: absolute;
+    left: 12px;
+    top: -8px;
+    min-width: 32px;
+    max-width: 72px;
+    width: 65%;
+    height: fit-content;
+
+    div div {
+      background-color: $grayscale-5;
+    }
+  }
+}

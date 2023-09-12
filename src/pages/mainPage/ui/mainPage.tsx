@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import s from './mainPage.module.scss';
-import { Input } from '@/z-shared/ui/input';
+import { Input, InputSkeleton } from '@/z-shared/ui/input';
 import Fire from '@/z-shared/assets/icons/fire.svg';
 import Info from '@/z-shared/assets/icons/info.svg';
 import { Button } from '@/z-shared/ui/button';
@@ -30,15 +30,18 @@ const MainPage = () => {
     return (
         <form className={s['container']}>
             {t('page')}
-            <Input
-                background={'secondary'}
-                placeholder={'place'}
-                autoComplete={'email'}
-                name={'email'}
-                type={'email'}
-                helperText={help}
-                errorText={err}
-            />
+            <div className={s['grid']}>
+                <Input
+                    background={'secondary'}
+                    placeholder={'place'}
+                    autoComplete={'email'}
+                    name={'email'}
+                    type={'email'}
+                    helperText={help}
+                    errorText={err}
+                />
+                <InputSkeleton/>
+            </div>
             <Input
                 background={'secondary'}
                 icon={Fire}
