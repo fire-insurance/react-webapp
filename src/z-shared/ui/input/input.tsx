@@ -60,7 +60,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>((props, forwardedR
         return createLabelAnimationKeyframes(from, to);
     };
 
-    const animateFocus = (e: FocusEvent<HTMLInputElement>) => {
+    const handleFocusEvent = (e: FocusEvent<HTMLInputElement>) => {
         isInputFilled.current = !!e.target.value;
 
         if (!animationsRef.current || !labelRef.current || isInputFilled.current) return;
@@ -74,7 +74,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>((props, forwardedR
             style={{ '--data-chip-height': `${dataChipHeight}px` } as CSSProperties}
         >
             <fieldset
-                className={clsx(s['fieldset'], errorText && s['fieldset--error'])}
+                className={clsx(s['fieldset'], errorText && s['fieldset--error'], !label && s['fieldset--no-label'])}
                 ref={fieldsetRef}
             >
                 {
@@ -108,18 +108,18 @@ export const Input = forwardRef<HTMLInputElement, InputProps>((props, forwardedR
                         className={s['input']}
                         id={id.current}
                         ref={createRefCallbackForForwardedRef(inputRef, forwardedRef)}
-                        onFocus={animateFocus}
-                        onBlur={animateFocus}
+                        onFocus={handleFocusEvent}
+                        onBlur={handleFocusEvent}
                         {...rest}
                     />
                     {
-                    button && (
-                        <Button
-                            variant={ButtonVariant.GHOST}
-                            {...button}
-                        />
-                    )
-                }
+                        button && (
+                            <Button
+                                variant={ButtonVariant.GHOST}
+                                {...button}
+                            />
+                        )
+                    }
                 </div>
             </fieldset>
             <InputDataChip

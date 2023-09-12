@@ -80,7 +80,10 @@ $input-transition: 150ms ease;
 
       color: $grayscale-9;
     }
+  }
 
+  &--no-label,
+  &--input-filled {
     .input::placeholder {
       opacity: 1;
     }

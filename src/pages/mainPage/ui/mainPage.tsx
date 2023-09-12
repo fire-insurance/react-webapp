@@ -32,7 +32,6 @@ const MainPage = () => {
             {t('page')}
             <Input
                 background={'secondary'}
-                label={'test'}
                 placeholder={'place'}
                 autoComplete={'email'}
                 name={'email'}
