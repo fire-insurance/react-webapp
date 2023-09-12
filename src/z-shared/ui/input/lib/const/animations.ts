@@ -20,6 +20,6 @@ export const createLabelAnimationKeyframes = (from: LabelAnimationKeyframe, to: 
 ];
 
 export const legendAnimationKeyframes = [
-    { width: 'max-content', padding: '0 0.5ch' },
+    { width: 'auto', padding: '0 0.5ch' },
     { width: '0', padding: '0' },
 ];

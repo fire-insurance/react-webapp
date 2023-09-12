@@ -4,7 +4,7 @@
   display: grid;
   grid-template-rows: 1fr auto;
   height: calc(100vh - $header-height);
-  width: $sidebar-width;
+  min-width: $sidebar-width;
   position: relative;
   background-color: $grayscale-2;
   border-right: 1px solid $grayscale-4;

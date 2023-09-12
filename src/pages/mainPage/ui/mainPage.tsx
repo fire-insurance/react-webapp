@@ -34,6 +34,7 @@ const MainPage = () => {
                 <Input
                     background={'secondary'}
                     placeholder={'place'}
+                    label={'A very big fucking label come on'}
                     autoComplete={'email'}
                     name={'email'}
                     type={'email'}
@@ -52,7 +53,7 @@ const MainPage = () => {
             <Input
                 background={'secondary'}
                 icon={Fire}
-                label={'gedrte'}
+                label={'A very big fucking label come on'}
                 button={{ icon: Info }}
             />
             <Button
