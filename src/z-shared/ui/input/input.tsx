@@ -10,6 +10,7 @@ import {
     createLabelAnimationKeyframes, LabelAnimationKeyframe,
 } from './lib/const/animations';
 import { InputDataChip } from './ui/inputDataChip/inputDataChip';
+import { createRefCallbackForForwardedRef } from '@/z-shared/lib/utils/createRefCallbackForForwardedRef';
 
 export const Input = forwardRef<HTMLInputElement, InputProps>((props, forwardedRef) => {
     const {
@@ -106,14 +107,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>((props, forwardedR
                     <input
                         className={s['input']}
                         id={id.current}
-                        ref={node => {
-                            inputRef.current = node;
-                            if (forwardedRef) {
-                                typeof forwardedRef === 'function'
-                                    ? forwardedRef(node)
-                                    : forwardedRef.current = node;
-                            }
-                        }}
+                        ref={createRefCallbackForForwardedRef(inputRef, forwardedRef)}
                         onFocus={animateFocus}
                         onBlur={animateFocus}
                         {...rest}
