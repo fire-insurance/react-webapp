@@ -58,6 +58,8 @@ export const Input = forwardRef<HTMLInputElement, InputProps>((props, forwardedR
     const animationRef = useRef<Animation[]>([]);
     const isInputFilled = useRef<boolean>(!!rest.value || !!rest.defaultValue);
 
+    const hasHelper = !!helperText || !!errorText;
+
     const inputDataChip = (() => {
         if (errorText) return { text: errorText, variant: DataChipVariant.ERROR };
         if (helperText) return { text: helperText, variant: DataChipVariant.INFO };
@@ -69,16 +71,12 @@ export const Input = forwardRef<HTMLInputElement, InputProps>((props, forwardedR
         if (!labelAnimationKeyframes) return;
 
         const [ labelKeyframes, legendKeyframes ] = (() => {
-            console.log(isInputFilled.current);
-
             if (isInputFilled.current) {
                 fieldsetRef.current?.classList.toggle(s['fieldset--input-filled']);
                 return [ labelAnimationKeyframes.reverse(), [ ...legendAnimationKeyframes ].reverse() ];
             }
             return [ labelAnimationKeyframes, legendAnimationKeyframes ];
         })();
-
-        console.log(labelKeyframes, legendKeyframes);
 
         const appendedAnimation = labelRef.current?.animate(labelKeyframes, labelAnimationOptions);
         const legendAnim = legendRef.current?.animate(legendKeyframes, labelAnimationOptions);
@@ -113,9 +111,9 @@ export const Input = forwardRef<HTMLInputElement, InputProps>((props, forwardedR
     };
 
     return (
-        <div className={s['container']}>
+        <div className={clsx(s['container'], hasHelper && s['container--with-helper'])}>
             <fieldset
-                className={s['fieldset']}
+                className={clsx(s['fieldset'], errorText && s['fieldset--error'])}
                 ref={fieldsetRef}
             >
                 {

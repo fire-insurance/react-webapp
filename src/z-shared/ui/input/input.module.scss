@@ -1,10 +1,18 @@
 @import '@/app/styles';
 
+$container-height: 42px;
 $input-height: 40px;
 $input-side-pad: 12px;
 
 .container {
   @include flex-col(4px);
+
+  transition: max-height $default-transition;
+  max-height: 42px;
+
+  &--with-helper {
+    max-height: fit-content;
+  }
 }
 
 .input {
@@ -35,7 +43,7 @@ $input-side-pad: 12px;
   transition: border-color $default-transition;
   position: relative;
 
-  &:focus-within {
+  &:not(&--error):focus-within {
     border-color: $accent-1;
   }
 
@@ -53,6 +61,10 @@ $input-side-pad: 12px;
     color: $grayscale-8;
     transition: font-size 150ms ease, color 150ms ease;
     position: absolute;
+  }
+
+  &--error {
+    border-color: $red-1;
   }
 
   &--input-filled {

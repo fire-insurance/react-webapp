@@ -4,10 +4,18 @@ import { Input } from '@/z-shared/ui/input';
 import Fire from '@/z-shared/assets/icons/fire.svg';
 import Info from '@/z-shared/assets/icons/info.svg';
 import { Button } from '@/z-shared/ui/button';
-import { type } from 'os';
+import { useEffect, useState } from 'react';
 
 const MainPage = () => {
     const { t } = useTranslation('mainPage');
+
+    const [ help, setHelp ] = useState<string>('');
+
+    useEffect(() => {
+        setTimeout(() => {
+            setHelp('This is a helper');
+        }, 1000);
+    }, []);
 
     return (
         <form className={s['container']}>
@@ -19,6 +27,7 @@ const MainPage = () => {
                 autoComplete={'email'}
                 name={'email'}
                 type={'email'}
+                errorText={help}
             />
             <Input
                 background={'secondary'}
