@@ -1,49 +1,15 @@
-import { ButtonHTMLAttributes, CSSProperties, FocusEvent, HTMLInputTypeAttribute, InputHTMLAttributes, forwardRef, useEffect, useRef, useState } from 'react';
+import { CSSProperties, FocusEvent, forwardRef, useEffect, useRef, useState } from 'react';
 import s from './input.module.scss';
-import { BaseButtonProps, ButtonVariant } from '../button/types/buttonTypes';
+import { ButtonVariant } from '../button/types/buttonTypes';
 import { v4 as uuid } from 'uuid';
 import { Button } from '../button';
 import clsx from 'clsx';
 import { DataChip, DataChipSize, DataChipVariant } from '../dataChip';
-
-type NativeInputProps = InputHTMLAttributes<HTMLInputElement>
-type InputType = Extract<HTMLInputTypeAttribute, 'email' | 'number' | 'password' | 'search' | 'text' | 'tel'>
-
-interface InputProps extends Omit<NativeInputProps, 'type'>{
-    label?: string;
-    background?: 'primary' | 'secondary';
-    icon?: JSX.Element | SVGComponent;
-    button?: Pick<BaseButtonProps, 'icon'> & ButtonHTMLAttributes<HTMLButtonElement>;
-    helperText?: string;
-    errorText?: string;
-    type?: InputType;
-}
-
-interface LabelAnimationKeyframe {
-    left: number;
-    top: number;
-}
-
-export const initialAnimationDuration = 150;
-export const labelAnimationId = 'labelAnimation';
-
-const labelAnimationOptions: KeyframeAnimationOptions = {
-    duration: initialAnimationDuration,
-    iterations: 1,
-    id: labelAnimationId,
-    fill: 'both',
-    easing: 'cubic-bezier(0, 0, 0.2, 1)',
-};
-
-const createLabelAnimationKeyframes = (from: LabelAnimationKeyframe, to: LabelAnimationKeyframe): Keyframe[] => [
-    { left: `calc(${from.left}px + 0.5ch - 1px)`, top: `${from.top}px` },
-    { left: `${to.left}px`, top: `${to.top}px` },
-];
-
-const legendAnimationKeyframes = [
-    { width: 'max-content', padding: '0 0.5ch' },
-    { width: '0', padding: '0' },
-];
+import { InputProps } from './types/inputTypes';
+import {
+    legendAnimationKeyframes, labelAnimationOptions,
+    createLabelAnimationKeyframes, LabelAnimationKeyframe,
+} from './lib/const/animations';
 
 export const Input = forwardRef<HTMLInputElement, InputProps>((props, forwardedRef) => {
     const {
@@ -55,7 +21,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>((props, forwardedR
     const legendRef = useRef<HTMLLegendElement | null>(null);
     const labelRef = useRef<HTMLLabelElement | null>(null);
     const inputRef = useRef<HTMLInputElement | null>(null);
-    const animationRef = useRef<Animation[]>([]);
+    const animationsRef = useRef<Animation[]>([]);
     const dataChipRef = useRef<HTMLDivElement | null>(null);
     const isInputFilled = useRef<boolean>(!!rest.value || !!rest.defaultValue);
     const [ dataChipHeight, setDataChipHeight ] = useState(0);
@@ -95,7 +61,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>((props, forwardedR
         if (!appendedAnimation || !legendAnim) return;
         appendedAnimation.finish();
         legendAnim.finish();
-        animationRef.current = [ appendedAnimation, legendAnim ];
+        animationsRef.current = [ appendedAnimation, legendAnim ];
     }, []);
 
     const createLabelAnimation = (): Keyframe[] | null => {
@@ -108,17 +74,15 @@ export const Input = forwardRef<HTMLInputElement, InputProps>((props, forwardedR
         const from: LabelAnimationKeyframe = { left: legendX - fieldSetX, top: -labelHeight / 2 };
         const to: LabelAnimationKeyframe = { left: inputX - fieldSetX - 1, top: (inputHeight - labelHeight) / 2 };
 
-        const keyframes = createLabelAnimationKeyframes(from, to);
-
-        return keyframes;
+        return createLabelAnimationKeyframes(from, to);
     };
 
     const animateFocus = (e: FocusEvent<HTMLInputElement>) => {
         isInputFilled.current = !!e.target.value;
 
-        if (!animationRef.current || !labelRef.current || isInputFilled.current) return;
+        if (!animationsRef.current || !labelRef.current || isInputFilled.current) return;
         fieldsetRef.current?.classList.toggle(s['fieldset--input-filled']);
-        animationRef.current.forEach(animation => animation.reverse());
+        animationsRef.current.forEach(animation => animation.reverse());
     };
 
     return (
