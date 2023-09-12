@@ -22,7 +22,6 @@ export const InputDataChip = ({ errorText, helperText, onHeightChange }: InputDa
             return;
         }
         onHeightChange(dataChipRef.current.getBoundingClientRect().height);
-
     }, [ helperText, errorText ]);
 
     return (
