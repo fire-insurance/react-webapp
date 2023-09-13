@@ -2,6 +2,7 @@
 
 .button {
   @include flex-row-center(8px);
+  @include disabled;
 
   --padding-L: 0 20px;
   --padding-S: 0 12px;
@@ -32,12 +33,6 @@
         fill: var(--content-hover-color);
       }
     }
-  }
-
-  &:disabled {
-    opacity: 0.4;
-    cursor: default;
-    filter: saturate(60%);
   }
 
   &--fill {

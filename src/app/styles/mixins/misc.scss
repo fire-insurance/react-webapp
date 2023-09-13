@@ -35,3 +35,11 @@
   /* stylelint-disable-next-line value-no-vendor-prefix */
   height: -webkit-fill-available;
 }
+
+@mixin disabled {
+  &:disabled {
+    opacity: 0.4;
+    cursor: default;
+    filter: saturate(60%);
+  }
+}
