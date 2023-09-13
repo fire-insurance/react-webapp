@@ -51,16 +51,20 @@ $input-transition: 150ms ease;
   }
 
   .legend {
+    @include nowrap-overflow;
     @extend %caption;
 
+    max-width: calc(var(--input-width) - 8px);
     margin: 0 8px;
     height: 1px;
     opacity: 0;
   }
 
   .label {
+    @include nowrap-overflow;
     @extend %text;
 
+    max-width: calc(var(--input-width) - 12px);
     color: $grayscale-8;
     transition: font-size $input-transition, color $input-transition;
     position: absolute;

@@ -11,20 +11,25 @@ const MainPage = () => {
 
     const [ help, setHelp ] = useState<string>('');
     const [ err, setErr ] = useState<string>('');
+    const [ val, setVal ] = useState('');
 
     useEffect(() => {
         setTimeout(() => {
             setHelp('This is a helper');
-        }, 1000);
+        }, 3000);
+
+        setTimeout(() => {
+            setVal('value');
+        }, 4000);
 
         setTimeout(() => {
             setErr('This is a big fucking error! You are doing something very goddamn wrong');
-        }, 2000);
+        }, 5000);
 
         setTimeout(() => {
             setErr('');
             setHelp('');
-        }, 5000);
+        }, 7000);
     }, []);
 
     return (
@@ -46,15 +51,14 @@ const MainPage = () => {
             <Input
                 background={'secondary'}
                 icon={Fire}
-                label={'test'}
                 placeholder={'place'}
-
             />
             <Input
                 background={'secondary'}
                 icon={Fire}
                 label={'A very big fucking label come on'}
                 button={{ icon: Info }}
+                defaultValue={val}
             />
             <Button
                 type={'submit'}

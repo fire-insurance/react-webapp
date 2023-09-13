@@ -1,4 +1,4 @@
-import { CSSProperties, FocusEvent, forwardRef, useEffect, useRef, useState } from 'react';
+import { CSSProperties, FocusEvent, forwardRef, useCallback, useEffect, useRef, useState } from 'react';
 import s from './input.module.scss';
 import { ButtonVariant } from '../button/types/buttonTypes';
 import { v4 as uuid } from 'uuid';
@@ -11,7 +11,17 @@ import {
 } from './lib/const/animations';
 import { InputDataChip } from './ui/inputDataChip/inputDataChip';
 import { createRefCallbackForForwardedRef } from '@/z-shared/lib/utils/createRefCallbackForForwardedRef';
+import { useDebounce } from '@/z-shared/lib/hooks/useDebounce';
 
+// toDo: рефактор пошел не по плану 🤡
+// компонент настолько усложнился, что просто пиздец, я подыхаю от этих анимаций.
+// надо спокойно посидеть и потестировать все это говно.
+// known problems:
+// 1) Инпут пустой, мы фокусимся на него, затем в пропс value/defaultValue попадает значение
+// и лейбл уезжает вниз!!!!
+// 2) Блядский legend не ресайзится нормально в состоянии эллипсиса. ResizeObserver это прям overkill,
+// можно обойтись width: 100% - 'x'px;
+// 3) autocomplete скорее всего все сломает
 export const Input = forwardRef<HTMLInputElement, InputProps>((props, forwardedRef) => {
     const {
         label, background = 'primary', icon: Icon = null,
@@ -22,17 +32,37 @@ export const Input = forwardRef<HTMLInputElement, InputProps>((props, forwardedR
     const legendRef = useRef<HTMLLegendElement | null>(null);
     const labelRef = useRef<HTMLLabelElement | null>(null);
     const inputRef = useRef<HTMLInputElement | null>(null);
+    const isInitialRender = useRef<boolean>(true);
     const animationsRef = useRef<Animation[]>([]);
-    const isInputFilled = useRef<boolean>(!!rest.value || !!rest.defaultValue);
+    const [ isInActiveView, setIsInActiveView ] = useState<boolean>(!!rest.value);
     const [ dataChipHeight, setDataChipHeight ] = useState(0);
+    const [ inputWidth, setInputWidth ] = useState(0);
+
+    useEffect(() => {
+        if (!inputRef.current) return;
+        const observer = new ResizeObserver(debouncedObserverCallback);
+        observer.observe(inputRef.current);
+
+        return () => {
+            inputRef.current && observer.unobserve(inputRef.current);
+        };
+    }, []);
+
+    const observerCallback = useCallback((entries: ResizeObserverEntry[]) => {
+        const inputWidth = entries.at(0)?.borderBoxSize[0]?.inlineSize;
+
+        inputWidth && setInputWidth(inputWidth);
+    }, []);
+
+    const debouncedObserverCallback = useDebounce(observerCallback, 10);
 
     useEffect(() => {
         const labelAnimationKeyframes = createLabelAnimation();
         if (!labelAnimationKeyframes) return;
 
         const [ labelKeyframes, legendKeyframes ] = (() => {
-            if (isInputFilled.current) {
-                fieldsetRef.current?.classList.toggle(s['fieldset--input-filled']);
+
+            if (isInActiveView) {
                 return [ labelAnimationKeyframes.reverse(), [ ...legendAnimationKeyframes ].reverse() ];
             }
             return [ labelAnimationKeyframes, legendAnimationKeyframes ];
@@ -46,6 +76,15 @@ export const Input = forwardRef<HTMLInputElement, InputProps>((props, forwardedR
         legendAnim.finish();
         animationsRef.current = [ appendedAnimation, legendAnim ];
     }, []);
+
+    useEffect(() => {
+        if (isInitialRender.current) {
+            isInitialRender.current = false;
+            return;
+        }
+
+        handleActiveStateChange(!!rest.value);
+    }, [ rest.value, rest.defaultValue ]);
 
     const createLabelAnimation = (): Keyframe[] | null => {
         if (!inputRef.current || !fieldsetRef.current || !labelRef.current || !legendRef.current) return null;
@@ -61,20 +100,30 @@ export const Input = forwardRef<HTMLInputElement, InputProps>((props, forwardedR
     };
 
     const handleFocusEvent = (e: FocusEvent<HTMLInputElement>) => {
-        isInputFilled.current = !!e.target.value;
+        handleActiveStateChange(!!e.target.value);
+    };
 
-        if (!animationsRef.current || !labelRef.current || isInputFilled.current) return;
-        fieldsetRef.current?.classList.toggle(s['fieldset--input-filled']);
-        animationsRef.current.forEach(animation => animation.reverse());
+    const handleActiveStateChange = (isInputFilled: boolean) => {
+        setIsInActiveView(prev => {
+            if (!animationsRef.current || isInputFilled && prev) return prev;
+
+            animationsRef.current.forEach(animation => animation.reverse());
+            return !prev;
+        });
     };
 
     return (
         <div
             className={clsx(s['container'], dataChipHeight && s['container--with-helper'])}
-            style={{ '--data-chip-height': `${dataChipHeight}px` } as CSSProperties}
+            style={{ '--data-chip-height': `${dataChipHeight}px`, '--input-width': `${inputWidth}px` } as CSSProperties}
         >
             <fieldset
-                className={clsx(s['fieldset'], errorText && s['fieldset--error'], !label && s['fieldset--no-label'])}
+                className={clsx(
+                    s['fieldset'],
+                    errorText && s['fieldset--error'],
+                    !label && s['fieldset--no-label'],
+                    isInActiveView && s['fieldset--input-filled'],
+                )}
                 ref={fieldsetRef}
             >
                 {
