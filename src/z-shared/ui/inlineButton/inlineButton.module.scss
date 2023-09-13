@@ -1,0 +1,18 @@
+@import '@/app/styles';
+
+.inline-button {
+  color: $accent-1;
+  transition: color $default-transition, filter $default-transition;
+  cursor: pointer;
+  user-select: none;
+
+  &:hover {
+    color: $accent-2;
+  }
+
+  &:active {
+    &:active {
+      filter: brightness(0.8);
+    }
+  }
+}
