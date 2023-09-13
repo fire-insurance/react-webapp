@@ -24,9 +24,13 @@ export const Input = forwardRef<HTMLInputElement, InputProps>((props, forwardedR
     const [ inputWidth, setInputWidth ] = useState(0);
     const [ inputOffset, setInputOffset ] = useState(0);
 
+    // "активное" состояние (label находится в legend)
     const [ isInActiveView, setIsInActiveView ] = useState<boolean>(!!rest.value);
     const [ isInFocus, setIsInFocus ] = useState(false);
 
+    // в неактивном состоянии мы должны знать ширину инпута, чтобы задать max-width для лейбла
+    // т.к. мы не знаем, какой ширины будет компонент icon (ведь в него можно передать все что угодно)
+    // приходится использовать ResizeObserver
     useEffect(() => {
         if (!inputRef.current) return;
         const observer = new ResizeObserver(debouncedObserverCallback);
@@ -37,6 +41,8 @@ export const Input = forwardRef<HTMLInputElement, InputProps>((props, forwardedR
         };
     }, []);
 
+    // Просчитываем расстояние от левой границы контейнера до левой границы инпута.
+    // Нужно, чтобы получить позицию лейбла в неактивном состоянии
     useEffect(() => {
         if (!wrapperRef.current || !inputRef.current) return;
 
@@ -48,12 +54,12 @@ export const Input = forwardRef<HTMLInputElement, InputProps>((props, forwardedR
 
     const observerCallback = useCallback((entries: ResizeObserverEntry[]) => {
         const inputWidth = entries.at(0)?.borderBoxSize[0]?.inlineSize;
-
         inputWidth && setInputWidth(inputWidth);
     }, []);
 
     const debouncedObserverCallback = useDebounce(observerCallback, 100);
 
+    // если текст в инпуте изменится "извне" (пропуская focus event)
     useEffect(() => {
         setIsInActiveView(!!rest.value || !!rest.defaultValue);
     }, [ rest.value, rest.defaultValue ]);
