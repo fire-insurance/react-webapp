@@ -5,7 +5,7 @@ const resultingOpacity = '10%';
 const initialAnimationKeyframes: Keyframe[] = [
     { 'opacity': '0%', 'width': '0%' },
     { 'opacity': resultingOpacity },
-    { 'opacity': resultingOpacity, 'width': '200%' },
+    { 'opacity': resultingOpacity, 'width': '300%' },
 ];
 
 export const initialAnimationDuration = 300;

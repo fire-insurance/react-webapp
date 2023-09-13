@@ -9,10 +9,10 @@
   background-color: $grayscale-2;
   border-right: 1px solid $grayscale-4;
   padding: 12px;
-  transition: width $default-transition;
+  transition: min-width $default-transition;
 
   &--collapsed {
-    width: $sidebar-width-collapsed;
+    min-width: $sidebar-width-collapsed;
   }
 }
 

@@ -1,19 +1,20 @@
 @import '@/app/styles';
 
-$container-height: 42px;
 $input-height: 40px;
 $input-side-pad: 12px;
 $input-transition: 150ms ease;
+$legend-side-padding: 0.5ch;
+$legend-offset: 8px;
 
 .container {
   @include flex-col(4px);
 
   transition: height $default-transition;
-  height: $container-height;
+  height: $input-height;
 
   // Переменная применяется через TSX. Данный блок отвечает за анимацию появления подсказки
   &--with-helper {
-    height: calc(var(--data-chip-height) + $container-height + 4px);
+    height: calc(var(--data-chip-height) + $input-height + 4px);
   }
 }
 
@@ -44,30 +45,39 @@ $input-transition: 150ms ease;
   border: 1px solid $grayscale-4;
   border-radius: 6px;
   transition: border-color $default-transition;
-  position: relative;
-
-  &:not(&--error):focus-within {
-    border-color: $accent-1;
-  }
+  position: absolute;
+  max-width: 100%;
+  width: 100%;
+  min-width: 0;
+  height: 100%;
+  left: 0;
+  padding: $legend-offset;
+  pointer-events: none;
 
   .legend {
     @include nowrap-overflow;
     @extend %caption;
 
-    max-width: calc(var(--input-width) - 8px);
-    margin: 0 8px;
+    max-width: 0;
     height: 1px;
     opacity: 0;
+    width: auto;
+    padding: 0;
+    transition: padding $default-transition, max-width $default-transition;
   }
 
   .label {
     @include nowrap-overflow;
     @extend %text;
 
-    max-width: calc(var(--input-width) - 12px);
+    max-width: calc(var(--input-width) - $input-side-pad);
     color: $grayscale-8;
-    transition: font-size $input-transition, color $input-transition;
+    transition: font-size $input-transition, color $input-transition,
+      left $input-transition, top $input-transition;
     position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: var(--input-offset);
   }
 
   &--error {
@@ -78,16 +88,7 @@ $input-transition: 150ms ease;
     perspective: 1000px;
   }
 
-  &--input-filled {
-    .label {
-      @extend %caption;
-
-      color: $grayscale-9;
-    }
-  }
-
-  &--no-label,
-  &--input-filled {
+  &--no-label {
     .input::placeholder {
       opacity: 1;
     }
@@ -101,6 +102,31 @@ $input-transition: 150ms ease;
   max-height: $input-height;
   border-radius: 6px;
   padding-left: $input-side-pad;
+  position: relative;
+
+  &--input-filled {
+    .fieldset .legend {
+      max-width: 100%;
+      padding: 0 $legend-side-padding;
+    }
+
+    .fieldset .label {
+      @extend %caption;
+
+      color: $grayscale-9;
+      max-width: calc(100% - $legend-offset * 2 - $legend-side-padding * 1.25);
+      top: 0;
+      left: calc($legend-offset + $legend-side-padding);
+    }
+
+    .input::placeholder {
+      opacity: 1;
+    }
+  }
+
+  &:focus-within .fieldset:not(.fieldset--error) {
+    border-color: $accent-1;
+  }
 
   &--primary {
     background-color: $grayscale-1;

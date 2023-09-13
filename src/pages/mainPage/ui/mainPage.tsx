@@ -5,7 +5,6 @@ import Fire from '@/z-shared/assets/icons/fire.svg';
 import Info from '@/z-shared/assets/icons/info.svg';
 import { Button } from '@/z-shared/ui/button';
 import { useEffect, useState } from 'react';
-import { InlineButton } from '@/z-shared/ui/inlineButton/inlineButton';
 
 const MainPage = () => {
     const { t } = useTranslation('mainPage');
@@ -65,16 +64,6 @@ const MainPage = () => {
                 type={'submit'}
                 text={'sumbit'}
             />
-            <p>
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                Quibusdam, voluptatem aliquam? Expedita
-                <InlineButton
-                    text={'gfdg'}
-                    onClick={() => console.log('meme')}
-                />
-                deleniti asperiores a perspiciatis,
-                placeat delectus! Sint iste in nam, a sit consequuntur quibusdam eaque est similique mollitia!
-            </p>
         </form>
 
     );

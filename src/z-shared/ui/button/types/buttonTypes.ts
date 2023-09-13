@@ -18,7 +18,7 @@ export interface BaseButtonProps {
     variant?: ButtonVariant;
     text?: string;
     icon?: JSX.Element | SVGComponent;
-    secondaryIcon?: JSX.Element;
+    secondaryIcon?: JSX.Element | SVGComponent;
     iconAlignment?: 'left' | 'right';
     size?: ButtonSize;
     theme?: AccentColors;

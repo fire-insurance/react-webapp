@@ -9,7 +9,7 @@ import { IconWrapper } from './ui/iconWrapper';
 
 export const Button = (props: ButtonProps) => {
     const {
-        className, variant = ButtonVariant.PRIMARY, size = ButtonSize.L, theme, iconAlignment = 'left',
+        className, variant = ButtonVariant.PRIMARY, size = ButtonSize.L, theme, iconAlignment = 'left', type = 'button',
         icon: Icon = null, secondaryIcon: SecondaryIcon, fillContainer, onClick, showLoader, text, ...rest
     } = props;
 
@@ -34,6 +34,7 @@ export const Button = (props: ButtonProps) => {
             style={buttonVar}
             onClick={showLoader ? undefined : onClick}
             ref={buttonRef}
+            type={type}
             {...rest}
         >
             {
@@ -58,7 +59,7 @@ export const Button = (props: ButtonProps) => {
                     )
                 }
             </IconWrapper>
-            { SecondaryIcon ?? null }
+            { typeof SecondaryIcon === 'function' ? <SecondaryIcon/> : SecondaryIcon }
         </button>
     );
 };
