@@ -41,60 +41,6 @@ $legend-offset: 8px;
   }
 }
 
-.fieldset {
-  border: 1px solid $grayscale-4;
-  border-radius: 6px;
-  transition: border-color $default-transition;
-  position: absolute;
-  max-width: 100%;
-  width: 100%;
-  min-width: 0;
-  height: 100%;
-  left: 0;
-  padding: $legend-offset;
-  pointer-events: none;
-
-  .legend {
-    @include nowrap-overflow;
-    @extend %caption;
-
-    max-width: 0;
-    height: 1px;
-    opacity: 0;
-    width: auto;
-    padding: 0;
-    transition: padding $default-transition, max-width $default-transition;
-  }
-
-  .label {
-    @include nowrap-overflow;
-    @extend %text;
-
-    max-width: calc(var(--input-width) - $input-side-pad);
-    color: $grayscale-8;
-    transition: font-size $input-transition, color $input-transition,
-      left $input-transition, top $input-transition;
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    left: var(--input-offset);
-  }
-
-  &--error {
-    border-color: $red-1;
-    animation: shake 0.8s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
-    transform: translate3d(0, 0, 0);
-    backface-visibility: hidden;
-    perspective: 1000px;
-  }
-
-  &--no-label {
-    .input::placeholder {
-      opacity: 1;
-    }
-  }
-}
-
 .input-wrapper {
   @include flex-row-center;
 
@@ -104,28 +50,11 @@ $legend-offset: 8px;
   padding-left: $input-side-pad;
   position: relative;
 
-  &--input-filled {
-    .fieldset .legend {
-      max-width: 100%;
-      padding: 0 $legend-side-padding;
-    }
-
-    .fieldset .label {
-      @extend %caption;
-
-      color: $grayscale-9;
-      max-width: calc(100% - $legend-offset * 2 - $legend-side-padding * 1.25);
-      top: 0;
-      left: calc($legend-offset + $legend-side-padding);
-    }
-
+  &--active-view,
+  &--no-label {
     .input::placeholder {
       opacity: 1;
     }
-  }
-
-  &:focus-within .fieldset:not(.fieldset--error) {
-    border-color: $accent-1;
   }
 
   &--primary {

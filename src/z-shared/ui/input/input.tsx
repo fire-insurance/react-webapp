@@ -8,6 +8,7 @@ import { InputProps } from './types/inputTypes';
 import { InputDataChip } from './ui/inputDataChip/inputDataChip';
 import { createRefCallbackForForwardedRef } from '@/z-shared/lib/utils/createRefCallbackForForwardedRef';
 import { useDebounce } from '@/z-shared/lib/hooks/useDebounce';
+import { FieldsetWrapper } from './ui/fieldsetWrapper/fieldsetWrapper';
 
 export const Input = forwardRef<HTMLInputElement, InputProps>((props, forwardedRef) => {
     const {
@@ -18,10 +19,13 @@ export const Input = forwardRef<HTMLInputElement, InputProps>((props, forwardedR
     const wrapperRef = useRef<HTMLDivElement | null>(null);
     const inputRef = useRef<HTMLInputElement | null>(null);
     const iconWrapperRef = useRef<HTMLInputElement | null>(null);
-    const [ isInActiveView, setIsInActiveView ] = useState<boolean>(!!rest.value);
+
     const [ dataChipHeight, setDataChipHeight ] = useState(0);
     const [ inputWidth, setInputWidth ] = useState(0);
     const [ inputOffset, setInputOffset ] = useState(0);
+
+    const [ isInActiveView, setIsInActiveView ] = useState<boolean>(!!rest.value);
+    const [ isInFocus, setIsInFocus ] = useState(false);
 
     useEffect(() => {
         if (!inputRef.current) return;
@@ -54,9 +58,15 @@ export const Input = forwardRef<HTMLInputElement, InputProps>((props, forwardedR
         setIsInActiveView(!!rest.value || !!rest.defaultValue);
     }, [ rest.value, rest.defaultValue ]);
 
-    const handleFocus = () => setIsInActiveView(true);
+    const handleFocus = () => {
+        setIsInActiveView(true);
+        setIsInFocus(true);
+    };
 
-    const handleBlur = (e: FocusEvent<HTMLInputElement>) => setIsInActiveView(!!e.target.value);
+    const handleBlur = (e: FocusEvent<HTMLInputElement>) => {
+        setIsInActiveView(!!e.target.value);
+        setIsInFocus(false);
+    };
 
     const inlineVariables: CSSProperties = useMemo(() => ({
         '--data-chip-height': `${dataChipHeight}px`,
@@ -73,35 +83,18 @@ export const Input = forwardRef<HTMLInputElement, InputProps>((props, forwardedR
                 className={clsx(
                     s['input-wrapper'],
                     s[`input-wrapper--${background}`],
-                    isInActiveView && s['input-wrapper--input-filled'],
+                    isInActiveView && s['input-wrapper--active-view'],
+                    !label && s['input-wrapper--no-label'],
                 )}
                 ref={wrapperRef}
             >
-                <fieldset
-                    className={clsx(
-                    s['fieldset'],
-                    errorText && s['fieldset--error'],
-                    !label && s['fieldset--no-label'],
-                )}
-                >
-                    {
-                    label && (
-                        <>
-                            <legend
-                                className={s['legend']}
-                            >
-                                {label}
-                            </legend>
-                            <label
-                                htmlFor={id.current}
-                                className={s['label']}
-                            >
-                                {label}
-                            </label>
-                        </>
-                    )
-                }
-                </fieldset>
+                <FieldsetWrapper
+                    id={id.current}
+                    active={isInActiveView}
+                    error={!!errorText}
+                    label={label}
+                    inFocus={isInFocus}
+                />
                 {
                     Icon && (
                         <div
