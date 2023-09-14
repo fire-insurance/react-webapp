@@ -1,0 +1,38 @@
+@import '@/app/styles';
+
+.mark {
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  height: 4px;
+  width: 4px;
+  border-radius: 50%;
+  background-color: $grayscale-1;
+  cursor: pointer;
+
+  &__label {
+    color: $grayscale-8;
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    white-space: nowrap;
+  }
+
+  &--passed {
+    background-color: $accent-1;
+  }
+
+  &--boundary {
+    background-color: transparent;
+
+    .mark__label {
+      transform: translateX(-100%);
+    }
+
+    &:first-of-type .mark__label {
+      left: 0;
+      transform: translateX(0);
+    }
+  }
+}

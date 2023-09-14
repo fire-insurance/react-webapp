@@ -1,0 +1,125 @@
+@import '@/app/styles';
+
+$thumb-size: 16px;
+
+.slider-wrapper {
+  @include flex-row-center;
+
+  min-height: calc($thumb-size - 4px);
+  padding: 4px 8px;
+
+  &--with-marks {
+    padding-bottom: calc(16px + 14px);
+  }
+}
+
+.step-tooltip {
+  position: absolute;
+  bottom: calc(100% + 8px);
+  background-color: $grayscale-3;
+  color: $grayscale-11;
+  padding: 6px 8px;
+  border-radius: 6px;
+  border: 1px solid $grayscale-4;
+  left: 50%;
+  transform: translateX(-50%);
+  transition: opacity $default-transition;
+  opacity: 0;
+  user-select: none;
+}
+
+.slider {
+  position: relative;
+  height: 8px;
+  border-radius: 4px;
+  background-color: $accent-6;
+  width: 100%;
+
+  &__track {
+    background-color: $accent-3;
+    height: 100%;
+    border-radius: 4px 0 0 4px;
+  }
+
+  &__thumb {
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    height: $thumb-size;
+    width: $thumb-size;
+    border-radius: 50%;
+    background-color: $accent-1;
+    cursor: pointer;
+    transition: left 0ms ease 0ms;
+    user-select: all;
+    box-shadow: #00000030 0 0 4px 1px;
+
+    &::before {
+      transition: box-shadow 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+      position: absolute;
+      content: '';
+      height: $thumb-size;
+      width: $thumb-size;
+      border-radius: 50%;
+      opacity: 0.1;
+    }
+
+    &:hover {
+      &::before {
+        box-shadow: $accent-1 0 0 0 8px;
+      }
+    }
+
+    &--active {
+      .step-tooltip {
+        opacity: 1;
+      }
+
+      &::before {
+        box-shadow: $accent-1 0 0 0 16px !important;
+      }
+    }
+  }
+}
+
+.skeleton {
+  position: relative;
+  height: 8px;
+  margin: 4px 0;
+
+  &__bg {
+    animation: oscillating 2s ease infinite;
+    position: absolute;
+    border: 1px solid $grayscale-4;
+    height: 100%;
+    width: 100%;
+    border-radius: 6px;
+  }
+
+  &__track {
+    width: 60%;
+    height: 100%;
+  }
+
+  &__thumb {
+    position: absolute;
+    height: $thumb-size;
+    width: $thumb-size;
+    background-color: $grayscale-4 !important;
+    top: 50%;
+    left: 60%;
+    transform: translate(-50%, -50%);
+  }
+
+  &--with-marks {
+    margin-bottom: calc(16px + 14px);
+  }
+}
+
+.marks-skeleton-wrapper {
+  @include flex-row-center(16px);
+
+  position: absolute;
+  top: 20px;
+  width: 100%;
+}

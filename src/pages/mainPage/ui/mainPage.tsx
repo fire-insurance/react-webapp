@@ -9,6 +9,7 @@ import { Checkbox, CheckboxSkeleton } from '@/z-shared/ui/checkbox';
 import { ProgressBar } from '@/z-shared/ui/progressBar';
 import { AccentColors } from '@/z-shared/types/appColors';
 import { Switch } from '@/z-shared/ui/switch';
+import { Slider } from '@/z-shared/ui/slider';
 
 const MainPage = () => {
     const { t } = useTranslation('mainPage');
@@ -35,6 +36,8 @@ const MainPage = () => {
             setHelp('');
         }, 7000);
     }, []);
+
+    const [ slider, setSlider ] = useState(0);
 
     return (
         <form className={s['container']}>
@@ -78,6 +81,11 @@ const MainPage = () => {
             <Switch
                 text={'gfg'}
                 justify={'gap'}
+            />
+            <Slider
+                value={slider}
+                onChange={setSlider}
+                marks={[ 25, 30, 100 ]}
             />
             <Button
                 type={'submit'}
