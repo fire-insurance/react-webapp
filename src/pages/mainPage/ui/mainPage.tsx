@@ -8,6 +8,7 @@ import { useEffect, useState } from 'react';
 import { Checkbox, CheckboxSkeleton } from '@/z-shared/ui/checkbox';
 import { ProgressBar } from '@/z-shared/ui/progressBar';
 import { AccentColors } from '@/z-shared/types/appColors';
+import { Switch } from '@/z-shared/ui/switch';
 
 const MainPage = () => {
     const { t } = useTranslation('mainPage');
@@ -73,6 +74,10 @@ const MainPage = () => {
                 max={[ 100, '100%' ]}
                 color={AccentColors.RED}
                 showOverflow={true}
+            />
+            <Switch
+                text={'gfg'}
+                justify={'gap'}
             />
             <Button
                 type={'submit'}

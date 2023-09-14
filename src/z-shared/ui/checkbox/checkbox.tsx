@@ -19,7 +19,6 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>((props, ref)
                 type={'checkbox'}
                 id={id.current}
                 ref={ref}
-                onChange={props.onChange}
                 className={'visually-hidden'}
                 {...rest}
             />
