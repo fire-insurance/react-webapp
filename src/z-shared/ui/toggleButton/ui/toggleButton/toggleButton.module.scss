@@ -1,0 +1,76 @@
+@import '@/app/styles';
+
+.button {
+  @include with-alpha-background(var(--active-bg-color), 0);
+
+  display: grid;
+  place-items: center;
+  background-color: transparent;
+  transition: border-color $default-transition, color $default-transition,
+    background-color $default-transition, opacity $default-transition;
+  width: 100%;
+  color: $grayscale-10;
+  position: relative;
+  cursor: pointer;
+
+  span {
+    z-index: 1;
+  }
+
+  &::before {
+    transition: opacity $default-transition;
+  }
+
+  &--l {
+    @extend %button-label;
+
+    min-height: 48px;
+    max-height: 48px;
+  }
+
+  &--s {
+    @extend %button-label-mini;
+
+    min-height: 32px;
+    max-height: 32px;
+  }
+
+  &--outline {
+    border: 1px solid $grayscale-4;
+
+    &:first-of-type {
+      border-radius: 6px 0 0 6px;
+    }
+
+    &:last-of-type {
+      border-radius: 0 6px 6px 0;
+    }
+
+    &:not(:first-of-type) {
+      border-left-color: transparent;
+      margin-left: -1px;
+    }
+  }
+
+  &--underline {
+    border-bottom: 2px solid transparent;
+  }
+}
+
+input:disabled + .button {
+  @extend %disabled;
+}
+
+input:checked + .button {
+  border-color: var(--active-border-color);
+  background-color: var(--active-bg-color);
+  color: var(--active-text-color);
+}
+
+input:enabled:not(:checked) + .button:hover::before {
+  opacity: 0.5;
+}
+
+input:enabled:checked + .button:hover {
+  border-color: var(--active-text-color);
+}

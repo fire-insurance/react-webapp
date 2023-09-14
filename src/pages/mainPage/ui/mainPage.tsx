@@ -6,10 +6,9 @@ import Info from '@/z-shared/assets/icons/info.svg';
 import { Button } from '@/z-shared/ui/button';
 import { useEffect, useState } from 'react';
 import { Checkbox, CheckboxSkeleton } from '@/z-shared/ui/checkbox';
-import { ProgressBar } from '@/z-shared/ui/progressBar';
-import { AccentColors } from '@/z-shared/types/appColors';
-import { Switch } from '@/z-shared/ui/switch';
-import { Slider } from '@/z-shared/ui/slider';
+import { ToggleButton, ToggleButtonGroup, ToggleButtonVariant } from '@/z-shared/ui/toggleButton';
+
+const buttons = [ 1, 2, 3, 4 ];
 
 const MainPage = () => {
     const { t } = useTranslation('mainPage');
@@ -37,7 +36,7 @@ const MainPage = () => {
         }, 7000);
     }, []);
 
-    const [ slider, setSlider ] = useState(0);
+    const [ meme, setMeme ] = useState<string>('1');
 
     return (
         <form className={s['container']}>
@@ -72,21 +71,23 @@ const MainPage = () => {
                 text={true}
                 lastLineWidth={'25'}
             />
-            <ProgressBar
-                value={[ 125, '125%' ]}
-                max={[ 100, '100%' ]}
-                color={AccentColors.RED}
-                showOverflow={true}
-            />
-            <Switch
-                text={'gfg'}
-                justify={'gap'}
-            />
-            <Slider
-                value={slider}
-                onChange={setSlider}
-                marks={[ 25, 30, 100 ]}
-            />
+            <ToggleButtonGroup
+                name={'btn'}
+                value={meme}
+                onChange={setMeme}
+                preventDeselect={true}
+            >
+                {
+                    buttons.map(it => (
+                        <ToggleButton
+                            text={`${it}`}
+                            value={`${it}`}
+                            variant={ToggleButtonVariant.OUTLINE}
+                            key={it}
+                        />
+                    ))
+                }
+            </ToggleButtonGroup>
             <Button
                 type={'submit'}
                 text={'sumbit'}
