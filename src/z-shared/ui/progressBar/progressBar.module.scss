@@ -1,0 +1,53 @@
+@import '@/app/styles';
+
+.container {
+  @include flex-col(8px);
+
+  width: 100%;
+}
+
+.label-wrapper {
+  @include flex-row-center(16px);
+
+  justify-content: space-between;
+}
+
+.progress-bar {
+  --bg-color: var(--grayscale-3);
+
+  $this: &;
+
+  height: 12px;
+  width: 100%;
+  background-color: var(--bg-color);
+  border-radius: 6px;
+  transition: background-color $default-transition;
+
+  &__line {
+    height: 100%;
+    background-color: var(--bar-color);
+    border-radius: inherit;
+    transition:
+      width $default-transition,
+      background-color $default-transition;
+  }
+
+  @each $key, $color in $accent-colors {
+    &--#{'' + $key} {
+      --bar-color: var(--#{$key + '-1'});
+
+      &#{$this}--overflowing {
+        --bg-color: var(--#{$key + '-5'});
+      }
+    }
+  }
+}
+
+.progress-bar-skeleton {
+  height: 12px;
+  width: 100%;
+}
+
+.max-label-skeleton {
+  align-items: flex-end;
+}

@@ -6,6 +6,8 @@ import Info from '@/z-shared/assets/icons/info.svg';
 import { Button } from '@/z-shared/ui/button';
 import { useEffect, useState } from 'react';
 import { Checkbox, CheckboxSkeleton } from '@/z-shared/ui/checkbox';
+import { ProgressBar } from '@/z-shared/ui/progressBar';
+import { AccentColors } from '@/z-shared/types/appColors';
 
 const MainPage = () => {
     const { t } = useTranslation('mainPage');
@@ -65,6 +67,12 @@ const MainPage = () => {
             <CheckboxSkeleton
                 text={true}
                 lastLineWidth={'25'}
+            />
+            <ProgressBar
+                value={[ 125, '125%' ]}
+                max={[ 100, '100%' ]}
+                color={AccentColors.RED}
+                showOverflow={true}
             />
             <Button
                 type={'submit'}
