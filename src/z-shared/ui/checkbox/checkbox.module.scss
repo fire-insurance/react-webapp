@@ -1,0 +1,79 @@
+/* stylelint-disable no-descending-specificity */
+@import '@/app/styles';
+
+.container {
+  @include flex-row-center(8px);
+  @extend %text;
+
+  cursor: pointer;
+  color: $grayscale-10;
+  transition: color $default-transition;
+}
+
+.checkbox {
+  @include flex-row-center;
+  @include color-svg($grayscale-1);
+  @include size-svg(16px);
+
+  display: grid;
+  place-items: center;
+  border-radius: 4px;
+  border: 1.5px solid $grayscale-8;
+  background-color: transparent;
+  width: 20px;
+  height: 20px;
+  transition:
+    border-color $default-transition,
+    background-color $default-transition;
+
+  svg {
+    transition: fill $default-transition;
+  }
+}
+
+input:disabled + .container {
+  @extend %disabled;
+}
+
+input {
+  &:checked {
+    + .container .checkbox {
+      @include color-svg($constant-white);
+
+      border-color: $accent-3;
+      background-color: $accent-3;
+    }
+
+    &:enabled:focus + .container,
+    &:enabled + .container:hover {
+      color: $grayscale-12;
+
+      .checkbox {
+        border-color: $accent-2;
+        background-color: $accent-2;
+      }
+    }
+  }
+
+  &:not(:checked) {
+    + .container .checkbox {
+      @include color-svg(transparent);
+    }
+
+    &:enabled:focus + .container,
+    &:enabled + .container:hover {
+      color: $grayscale-12;
+
+      .checkbox {
+        border-color: $accent-3;
+        background-color: $accent-6;
+      }
+    }
+  }
+}
+
+.checkbox-skeleton {
+  height: 20px;
+  width: 20px;
+  border: 1px solid $grayscale-4;
+}

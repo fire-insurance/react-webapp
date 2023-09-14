@@ -1,6 +1,5 @@
 @import '@/app/styles';
 
-$input-height: 40px;
 $input-side-pad: 12px;
 $input-transition: 150ms ease;
 $legend-side-padding: 0.5ch;
@@ -16,6 +15,7 @@ $legend-offset: 8px;
   left: 0;
   padding: $legend-offset;
   pointer-events: none;
+  z-index: 100;
 
   // very fucking important!!!
   min-width: 0;

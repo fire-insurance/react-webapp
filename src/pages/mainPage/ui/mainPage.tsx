@@ -5,6 +5,7 @@ import Fire from '@/z-shared/assets/icons/fire.svg';
 import Info from '@/z-shared/assets/icons/info.svg';
 import { Button } from '@/z-shared/ui/button';
 import { useEffect, useState } from 'react';
+import { Checkbox, CheckboxSkeleton } from '@/z-shared/ui/checkbox';
 
 const MainPage = () => {
     const { t } = useTranslation('mainPage');
@@ -60,12 +61,16 @@ const MainPage = () => {
                 button={{ icon: Info }}
                 defaultValue={val}
             />
+            <Checkbox text={'gdfg'}/>
+            <CheckboxSkeleton
+                text={true}
+                lastLineWidth={'25'}
+            />
             <Button
                 type={'submit'}
                 text={'sumbit'}
             />
         </form>
-
     );
 };
 

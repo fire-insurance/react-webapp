@@ -36,10 +36,14 @@
   height: -webkit-fill-available;
 }
 
+%disabled {
+  opacity: 0.4;
+  cursor: default;
+  filter: saturate(60%);
+}
+
 @mixin disabled {
   &:disabled {
-    opacity: 0.4;
-    cursor: default;
-    filter: saturate(60%);
+    @extend %disabled;
   }
 }
