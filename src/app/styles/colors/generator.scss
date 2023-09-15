@@ -29,6 +29,9 @@ $themes: (
   @each $theme-name, $theme in $themes {
     $theme-colors: generate-theme-colors($theme);
 
+    --constant-white: #fff;
+    --constant-black: #000;
+
     &.#{$theme-name}-theme {
       @each $color-name, $color-value in $theme-colors {
         --#{$color-name}: #{$color-value};

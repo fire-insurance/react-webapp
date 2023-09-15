@@ -6,7 +6,8 @@ import Info from '@/z-shared/assets/icons/info.svg';
 import { Button } from '@/z-shared/ui/button';
 import { useEffect, useState } from 'react';
 import { Checkbox, CheckboxSkeleton } from '@/z-shared/ui/checkbox';
-import { ToggleButton, ToggleButtonGroup, ToggleButtonVariant } from '@/z-shared/ui/toggleButton';
+import { ToggleButton, ToggleButtonGroup, ToggleButtonGroupSkeleton, ToggleButtonSize, ToggleButtonVariant } from '@/z-shared/ui/toggleButton';
+import { AccentColors } from '@/z-shared/types/appColors';
 
 const buttons = [ 1, 2, 3, 4 ];
 
@@ -36,7 +37,7 @@ const MainPage = () => {
         }, 7000);
     }, []);
 
-    const [ meme, setMeme ] = useState<string>('1');
+    const [ meme, setMeme ] = useState<string | undefined>(undefined);
 
     return (
         <form className={s['container']}>
@@ -75,14 +76,34 @@ const MainPage = () => {
                 name={'btn'}
                 value={meme}
                 onChange={setMeme}
-                preventDeselect={true}
+                variant={ToggleButtonVariant.OUTLINE}
+                size={ToggleButtonSize.S}
             >
                 {
-                    buttons.map(it => (
+                    buttons.map((it, index) => (
                         <ToggleButton
                             text={`${it}`}
                             value={`${it}`}
-                            variant={ToggleButtonVariant.OUTLINE}
+                            key={it}
+                        />
+                    ))
+                }
+            </ToggleButtonGroup>
+            <ToggleButtonGroupSkeleton
+                buttonQuantity={4}
+                size={ToggleButtonSize.S}
+            />
+            <ToggleButtonGroup
+                name={'btn'}
+                value={meme}
+                onChange={setMeme}
+                variant={ToggleButtonVariant.UNDERLINE}
+            >
+                {
+                    buttons.map((it, index) => (
+                        <ToggleButton
+                            text={`${it}`}
+                            value={`${it}`}
                             key={it}
                         />
                     ))

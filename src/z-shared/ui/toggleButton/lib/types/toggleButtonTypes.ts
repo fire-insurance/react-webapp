@@ -14,7 +14,7 @@ export enum ToggleButtonSize {
 export interface ToggleButtonProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'size'> {
     text: string;
     value: string | number;
-    variant: ToggleButtonVariant;
+    variant?: ToggleButtonVariant;
     size?: ToggleButtonSize;
     theme?: AccentColors;
 }

@@ -1,12 +1,16 @@
 import React, { ChangeEvent, PropsWithChildren, useCallback, useMemo } from 'react';
 import { FC, ReactElement } from 'react';
 import s from './toggleButtonGroup.module.scss';
-import { ToggleButtonProps } from '../../lib/types/toggleButtonTypes';
+import { ToggleButtonProps, ToggleButtonSize, ToggleButtonVariant } from '../../lib/types/toggleButtonTypes';
 import { ToggleButton } from '../toggleButton/toggleButton';
+import clsx from 'clsx';
 
 type ToggleButtonGroupProps = {
     name: string;
     children: ReactElement<typeof ToggleButton>[];
+    variant: ToggleButtonVariant;
+    size?: ToggleButtonSize;
+    fillContainer?: boolean;
 } & (NoDeselectToggleButton | AllowDeselectToggleButton)
 
 interface NoDeselectToggleButton {
@@ -23,7 +27,7 @@ interface AllowDeselectToggleButton {
 
 export const ToggleButtonGroup: FC<ToggleButtonGroupProps> = props => {
     const {
-        value, name, children, onChange, preventDeselect,
+        value, name, children, onChange, preventDeselect, variant, fillContainer = true, size = ToggleButtonSize.L,
     } = props;
 
     const handleValueChange = useCallback((event: ChangeEvent<HTMLInputElement>) => {
@@ -32,12 +36,13 @@ export const ToggleButtonGroup: FC<ToggleButtonGroupProps> = props => {
 
         const change = onChange as AllowDeselectToggleButton['onChange'];
         change(newValue === value ? undefined : newValue);
-
     }, [ value, onChange ]);
 
     const childrenWithAppendedProps = useMemo(() => {
         const propsToToggleButtons: Partial<ToggleButtonProps> = {
             name,
+            variant,
+            size,
             onChange: handleValueChange,
         };
 
@@ -52,10 +57,17 @@ export const ToggleButtonGroup: FC<ToggleButtonGroupProps> = props => {
 
             return React.cloneElement(element, { ...propsToAppend, key: index });
         });
-    }, [ handleValueChange, children, name ]);
+    }, [ handleValueChange, variant, size, children, name ]);
 
     return (
-        <fieldset className={s.container}>
+        <fieldset
+            className={clsx(
+                s['container'],
+                s[`container--${variant}`],
+                s[`container--${size}`],
+                fillContainer && s['container--fill'],
+            )}
+        >
             <div className={s['toggle-buttons']}>
                 {childrenWithAppendedProps}
             </div>

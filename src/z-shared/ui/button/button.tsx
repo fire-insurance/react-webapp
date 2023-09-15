@@ -14,7 +14,7 @@ export const Button = (props: ButtonProps) => {
     } = props;
 
     const disableActiveIndicator = showLoader || variant === ButtonVariant.FLAT || variant === ButtonVariant.THIN;
-    const buttonRef = useActiveIndicator<HTMLButtonElement>(disableActiveIndicator);
+    const buttonRef = useActiveIndicator<HTMLButtonElement>({ disabled: disableActiveIndicator });
     const buttonVar = useMemo(() => generateButtonCssVar(variant, theme), [ variant, theme ]);
 
     return (

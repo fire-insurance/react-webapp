@@ -3,6 +3,12 @@ import s from './activeIndicator.module.scss';
 import { ScreenEvent, getScreenEventPosition } from '../../utils/getScreenEventPosition';
 import { initialAnimation, initialAnimationId, exitAnimationId, exitAnimation } from './const/animations';
 import { getInteractionEventKeys } from './utils/getInteractionEventKeys';
+import { AccentColors } from '@/z-shared/types/appColors';
+
+interface UseActiveIndicatorProps {
+    backgroundColor?: AccentColors;
+    disabled?: boolean;
+}
 
 /**
  * Возвращает ref заданного типа.
@@ -11,15 +17,18 @@ import { getInteractionEventKeys } from './utils/getInteractionEventKeys';
  * @note
  * Элемент, для которого передается ref должен иметь position: relative
  */
-export const useActiveIndicator = <T extends HTMLElement>(disabled = false) => {
+export const useActiveIndicator = <T extends HTMLElement>(props: UseActiveIndicatorProps) => {
+    const { backgroundColor, disabled } = props;
     const elementRef = useRef<T | null>(null);
     const activeIndicatorSet = useRef<Set<HTMLDivElement>>(new Set());
     const interactionEventKeys = useRef(getInteractionEventKeys());
     const disabledRef = useRef(disabled);
+    const bgColorRef = useRef<string>('');
 
     useEffect(() => {
         disabledRef.current = disabled;
-    }, [ disabled ]);
+        bgColorRef.current = backgroundColor ? `${backgroundColor}-1` : 'constant-white';
+    }, [ disabled, backgroundColor ]);
 
     // Навешиваем на элемент слушатель на событие нажатия
     useEffect(() => {
@@ -53,6 +62,7 @@ export const useActiveIndicator = <T extends HTMLElement>(disabled = false) => {
         indicator.setAttribute('class', s['indicator']);
         indicator.style.left = `${eventX - x}px`;
         indicator.style.top = `${eventY - y}px`;
+        indicator.style.backgroundColor = `var(--${bgColorRef.current})`;
         indicator.animate(...initialAnimation);
 
         activeIndicatorSet.current.add(indicator);

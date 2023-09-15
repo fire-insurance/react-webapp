@@ -6,12 +6,17 @@
   display: grid;
   place-items: center;
   background-color: transparent;
-  transition: border-color $default-transition, color $default-transition,
-    background-color $default-transition, opacity $default-transition;
+  transition:
+    border-color $default-transition,
+    color $default-transition,
+    background-color $default-transition,
+    opacity $default-transition;
   width: 100%;
   color: $grayscale-10;
   position: relative;
   cursor: pointer;
+  overflow: hidden;
+  padding: 0 16px;
 
   span {
     z-index: 1;
@@ -54,6 +59,15 @@
 
   &--underline {
     border-bottom: 2px solid transparent;
+
+    input:enabled:not(:checked) + &:hover {
+      border-color: var(--text-hover-color);
+    }
+
+    /* stylelint-disable-next-line no-descending-specificity */
+    input:checked + & {
+      color: $grayscale-12;
+    }
   }
 }
 

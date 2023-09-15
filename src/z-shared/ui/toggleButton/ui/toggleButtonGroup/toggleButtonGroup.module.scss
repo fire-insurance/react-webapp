@@ -2,36 +2,57 @@
 
 .toggle-buttons {
   display: flex;
+}
+
+.container {
   width: 100%;
 
-  &--underlined {
+  &--l {
+    max-height: 48px;
+  }
+
+  &--s {
+    max-height: 32px;
+  }
+
+  &--fill .toggle-buttons {
+    width: 100%;
+  }
+
+  &:not(&--fill) .toggle-buttons {
+    width: fit-content;
+  }
+
+  &--underline {
     border-bottom: 1px solid $grayscale-4;
   }
 }
 
-.container {
-  height: fit-content;
-  width: 100%;
-}
-
 .skeleton {
   width: 100%;
-  height: 32px;
   border: 1px solid $grayscale-4;
   border-radius: 0;
   display: grid;
   place-items: center;
   padding: 0 12px;
 
+  &--l {
+    height: 48px;
+  }
+
+  &--s {
+    height: 32px;
+  }
+
   &:first-of-type {
     border-radius: 5px 0 0 5px;
   }
 
-  &:not(.skeleton:first-of-type) {
-    border-left-color: transparent;
-  }
-
   &:last-of-type {
     border-radius: 0 5px 5px 0;
+  }
+
+  &:not(.skeleton:first-of-type) {
+    border-left-color: transparent;
   }
 }

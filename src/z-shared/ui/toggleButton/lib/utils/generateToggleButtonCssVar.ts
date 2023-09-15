@@ -22,8 +22,8 @@ export const generateToggleButtonCssVar = (
             return {
                 '--active-bg-color': 'transparent',
                 '--active-border-color': `var(--${colorSet}-1)`,
-                '--active-text-color': `var(--${AppColors.GRAYSCALE}-12)`,
-                '--text-hover-color': `var(--${colorSet}-1)`,
+                '--active-text-color': `var(--${colorSet}-1)`,
+                '--text-hover-color': `var(--${colorSet}-4)`,
             };
         }
     }
