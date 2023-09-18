@@ -7,7 +7,7 @@ import { Button } from '@/z-shared/ui/button';
 import { useEffect, useState } from 'react';
 import { Checkbox, CheckboxSkeleton } from '@/z-shared/ui/checkbox';
 import { ToggleButton, ToggleButtonGroup, ToggleButtonGroupSkeleton, ToggleButtonSize, ToggleButtonVariant } from '@/z-shared/ui/toggleButton';
-import { AccentColors } from '@/z-shared/types/appColors';
+import { ToolTip } from '@/z-shared/ui/toolTip';
 
 const buttons = [ 1, 2, 3, 4 ];
 
@@ -109,6 +109,10 @@ const MainPage = () => {
                     ))
                 }
             </ToggleButtonGroup>
+            <ToolTip
+                tip={'Lorem inpsum'}
+                text={'This is a tip'}
+            />
             <Button
                 type={'submit'}
                 text={'sumbit'}

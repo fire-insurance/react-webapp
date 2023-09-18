@@ -1,0 +1,45 @@
+@import '@/app/styles';
+
+$needle-size: 16px;
+
+.container {
+  position: absolute;
+  z-index: 100;
+  left: 50%;
+  bottom: 100%;
+  transform: translateX(-50%);
+  transition: opacity $default-transition, transform $default-transition;
+
+  &--active {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  &:not(&--active) {
+    transform: translateY(12px);
+    opacity: 0;
+  }
+}
+
+.needle {
+  position: absolute;
+  height: $needle-size;
+  width: $needle-size;
+  left: 50%;
+  bottom: 100%;
+  transform: translateX(-50%);
+  fill: $grayscale-3;
+}
+
+.tip {
+  @extend %caption;
+
+  position: absolute;
+  color: $grayscale-8;
+  width: max-content;
+  max-width: min(50ch, 80vw);
+  padding: 8px;
+  border-radius: 4px;
+  bottom: calc(100% + $needle-size - 1px);
+  background-color: $grayscale-3;
+}

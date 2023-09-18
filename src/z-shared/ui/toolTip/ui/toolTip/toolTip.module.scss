@@ -1,0 +1,25 @@
+@import '@/app/styles';
+
+.container {
+  @include flex-row-center(4px);
+
+  color: $grayscale-8;
+  cursor: help;
+  transition: color $default-transition;
+  width: max-content;
+
+  &:hover {
+    color: $grayscale-10;
+  }
+
+  .text {
+    @extend %text;
+  }
+
+  .icon-wrapper {
+    @include size-svg(16px);
+
+    max-height: 16px;
+    position: relative;
+  }
+}
