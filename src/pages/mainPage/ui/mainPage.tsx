@@ -18,24 +18,24 @@ const MainPage = () => {
     const [ err, setErr ] = useState<string>('');
     const [ val, setVal ] = useState('');
 
-    useEffect(() => {
-        setTimeout(() => {
-            setHelp('This is a helper');
-        }, 3000);
+    // useEffect(() => {
+    //     setTimeout(() => {
+    //         setHelp('This is a helper');
+    //     }, 3000);
 
-        setTimeout(() => {
-            setVal('value');
-        }, 4000);
+    //     setTimeout(() => {
+    //         setVal('value');
+    //     }, 4000);
 
-        setTimeout(() => {
-            setErr('This is a big fucking error! You are doing something very goddamn wrong');
-        }, 5000);
+    //     setTimeout(() => {
+    //         setErr('This is a big fucking error! You are doing something very goddamn wrong');
+    //     }, 5000);
 
-        setTimeout(() => {
-            setErr('');
-            setHelp('');
-        }, 7000);
-    }, []);
+    //     setTimeout(() => {
+    //         setErr('');
+    //         setHelp('');
+    //     }, 7000);
+    // }, []);
 
     const [ meme, setMeme ] = useState<string | undefined>(undefined);
 
@@ -110,8 +110,11 @@ const MainPage = () => {
                 }
             </ToggleButtonGroup>
             <ToolTip
-                tip={'Lorem inpsum'}
-                text={'This is a tip'}
+                tip={'Lorem inpsum Lorem inpsum Lorem inpsum Lorem inpsum Lorem inpsum Lorem inpsum '}
+                text={'This is This is This is'}
+            />
+            <ToolTip
+                tip={'Lorem inpsum Lorem inpsum Lorem inpsum Lorem inpsum Lorem inpsum Lorem inpsum '}
             />
             <Button
                 type={'submit'}

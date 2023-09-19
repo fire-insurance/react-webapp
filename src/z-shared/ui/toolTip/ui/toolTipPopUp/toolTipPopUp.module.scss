@@ -37,7 +37,7 @@ $needle-size: 16px;
   position: absolute;
   color: $grayscale-8;
   width: max-content;
-  max-width: min(50ch, 80vw);
+  max-width: min(50ch, calc(100vw - 32px));
   padding: 8px;
   border-radius: 4px;
   bottom: calc(100% + $needle-size - 1px);

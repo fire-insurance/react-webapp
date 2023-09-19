@@ -12,7 +12,7 @@ import { LanguageSwitcher } from '@/widgets/languageSwitcher';
 interface SidebarProps extends WithClassName {}
 
 export const Sidebar = ({ className }: SidebarProps) => {
-    const [ collapsed, , , toggle ] = useBooleanState(false);
+    const [ collapsed, , , toggle ] = useBooleanState(true);
     const { t } = useTranslation();
 
     return (
