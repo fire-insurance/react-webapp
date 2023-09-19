@@ -1,3 +1,4 @@
+import { useRef } from 'react';
 import { createMediaQuery } from '../../useMediaQuery/utils/createMediaQuery';
 
 type InitialInteractionEventKey = keyof Pick<HTMLElementEventMap, 'mousedown' | 'touchstart'>;
@@ -12,9 +13,9 @@ export type InteractionEventKeyTuple = [
  * "нажатия" - клик на десктопе и тач на touch устройствах
  */
 export const getInteractionEventKeys = (): InteractionEventKeyTuple => {
-    const isTouchDevice = createMediaQuery('(hover: none)').matches;
+    const isTouchDevice = useRef(createMediaQuery('(hover: none)').matches);
 
-    return isTouchDevice
+    return isTouchDevice.current
         ? [ 'touchstart', 'touchend' ]
         : [ 'mousedown', 'mouseup' ];
 };

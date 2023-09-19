@@ -1,6 +1,5 @@
 import InfoIcon from '@/z-shared/assets/icons/info.svg';
 import s from './toolTip.module.scss';
-import { useState } from 'react';
 import { ToolTipPopUp } from '../toolTipPopUp/toolTipPopUp';
 import useBooleanState from '@/z-shared/lib/hooks/useBooleanState';
 
@@ -17,8 +16,6 @@ export const ToolTip = ({ tip, text }: ToolTipProps) => {
             className={s['container']}
             onMouseEnter={setVisible}
             onMouseLeave={setNotVisible}
-            onClick={setVisible}
-            onBlur={setNotVisible}
         >
             {
                 text && (

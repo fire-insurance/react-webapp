@@ -31,15 +31,21 @@ $needle-size: 16px;
   fill: $grayscale-3;
 }
 
+// обертка с отступом нужна, чтобы при проведении мышкой вверх от элемента, вызвавшего тултип
+// до тултипа, последний не исчезал.
+.tip-wrapper {
+  position: absolute;
+  padding-bottom: $needle-size;
+  bottom: 100%;
+}
+
 .tip {
   @extend %caption;
 
-  position: absolute;
   color: $grayscale-8;
   width: max-content;
   max-width: min(50ch, calc(100vw - 32px));
   padding: 8px;
   border-radius: 4px;
-  bottom: calc(100% + $needle-size - 1px);
   background-color: $grayscale-3;
 }

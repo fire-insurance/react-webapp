@@ -93,11 +93,16 @@ export const ToolTipPopUp = ({ isVisible, text }: ToolTipPopUpProps) => {
                 localIsVisible && (
                     <>
                         <div
-                            className={s['tip']}
+                            className={s['tip-wrapper']}
                             style={{ left: `${tipLeft}px` }}
                             ref={refCallback}
                         >
-                            {text}
+                            <div
+                                className={s['tip']}
+
+                            >
+                                {text}
+                            </div>
                         </div>
                         <ToolTipNeedle className={s['needle']}/>
                     </>
