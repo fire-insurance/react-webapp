@@ -1,0 +1,11 @@
+@import '@/app/styles';
+
+.content {
+  @include flex-col(24px);
+}
+
+.list {
+  @include flex-col(16px);
+
+  list-style-position: inside;
+}

@@ -9,6 +9,8 @@ interface WithTooltipProps extends WithClassName {
     showOnCondition?: boolean;
 }
 
+// Мне не совсем нравится реализация. Возможно есть резон попробовать предыдущую версию
+// с хуком, который навешивает слушатели события и вызывает глобальный тултип через провайдер :thinking:
 export const WithTooltip: FC<WithTooltipProps> = ({ children, tip, className, align, showOnCondition = true }) => {
     const [ visible, setVisible, setNotVisible ] = useBooleanState(false);
 

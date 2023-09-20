@@ -8,6 +8,8 @@ import { useEffect, useState } from 'react';
 import { Checkbox, CheckboxSkeleton } from '@/z-shared/ui/checkbox';
 import { ToggleButton, ToggleButtonGroup, ToggleButtonGroupSkeleton, ToggleButtonSize, ToggleButtonVariant } from '@/z-shared/ui/toggleButton';
 import { ToolTip, WithTooltip } from '@/z-shared/ui/toolTip';
+import { useModal } from '@/z-shared/providers/modalProvider';
+import NoEmailModal from './noEmailModal/noEmailModal';
 
 const buttons = [ 1, 2, 3, 4 ];
 
@@ -17,6 +19,8 @@ const MainPage = () => {
     const [ help, setHelp ] = useState<string>('');
     const [ err, setErr ] = useState<string>('');
     const [ val, setVal ] = useState('');
+
+    const [ openNoEmailModal ] = useModal(NoEmailModal);
 
     // useEffect(() => {
     //     setTimeout(() => {
@@ -129,6 +133,10 @@ const MainPage = () => {
                     disabled={disabled}
                 />
             </WithTooltip>
+            <Button
+                text={'Open email modal'}
+                onClick={() => openNoEmailModal({ userEmail: 'anyemail' })}
+            />
         </form>
     );
 };

@@ -50,6 +50,7 @@ export const buildLoaders = ({ isDevelopment }: BuildOptions): RuleSetRule[] => 
                     },
                 },
             },
+            'postcss-loader',
             'sass-loader',
         ],
     };
