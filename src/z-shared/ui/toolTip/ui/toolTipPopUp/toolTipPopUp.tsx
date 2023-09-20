@@ -1,17 +1,24 @@
-import ToolTipNeedle from '@/z-shared/assets/icons/needle.svg';
+import ToolTipNeedle from '../../../../assets/icons/needle.svg';
 import { RefCallback, useCallback, useEffect, useRef, useState } from 'react';
 import s from './toolTipPopUp.module.scss';
-import useBooleanState from '@/z-shared/lib/hooks/useBooleanState';
+import useBooleanState from '../../../../lib/hooks/useBooleanState';
 import clsx from 'clsx';
+
+export enum ToolTipPopUpAlignment {
+    LEFT = 'left',
+    CENTER = 'center',
+    RIGHT = 'right',
+}
 
 interface ToolTipPopUpProps {
     isVisible: boolean;
     text: string;
+    align?: ToolTipPopUpAlignment;
 }
 
 const sideOffset = 16;
 
-export const ToolTipPopUp = ({ isVisible, text }: ToolTipPopUpProps) => {
+export const ToolTipPopUp = ({ isVisible, text, align = ToolTipPopUpAlignment.CENTER }: ToolTipPopUpProps) => {
     const [ tipLeft, setTipLeft ] = useState<number>(0);
     const [ localIsVisible, setLocalIsVisible, setLocalNotVisible ] = useBooleanState(isVisible);
     const observerRef = useRef<ResizeObserver | null>(null);
@@ -86,7 +93,11 @@ export const ToolTipPopUp = ({ isVisible, text }: ToolTipPopUpProps) => {
 
     return (
         <div
-            className={clsx(s['container'], isVisible && s['container--active'])}
+            className={clsx(
+                s['container'],
+                s[`container--${align}`],
+                isVisible && s['container--active'],
+            )}
             ref={containerRef}
         >
             {

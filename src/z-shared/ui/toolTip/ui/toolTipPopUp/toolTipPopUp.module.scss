@@ -5,10 +5,20 @@ $needle-size: 16px;
 .container {
   position: absolute;
   z-index: 100;
-  left: 50%;
   bottom: 100%;
-  transform: translateX(-50%);
   transition: opacity $default-transition, transform $default-transition;
+
+  &--left {
+    left: $needle-size;
+  }
+
+  &--center {
+    left: 50%;
+  }
+
+  &--right {
+    left: calc(100% - $needle-size / 2);
+  }
 
   &--active {
     transform: translateY(0);

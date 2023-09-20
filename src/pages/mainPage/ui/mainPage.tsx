@@ -7,7 +7,7 @@ import { Button } from '@/z-shared/ui/button';
 import { useEffect, useState } from 'react';
 import { Checkbox, CheckboxSkeleton } from '@/z-shared/ui/checkbox';
 import { ToggleButton, ToggleButtonGroup, ToggleButtonGroupSkeleton, ToggleButtonSize, ToggleButtonVariant } from '@/z-shared/ui/toggleButton';
-import { ToolTip } from '@/z-shared/ui/toolTip';
+import { ToolTip, WithTooltip } from '@/z-shared/ui/toolTip';
 
 const buttons = [ 1, 2, 3, 4 ];
 
@@ -38,6 +38,8 @@ const MainPage = () => {
     // }, []);
 
     const [ meme, setMeme ] = useState<string | undefined>(undefined);
+
+    const disabled = true;
 
     return (
         <form className={s['container']}>
@@ -110,16 +112,23 @@ const MainPage = () => {
                 }
             </ToggleButtonGroup>
             <ToolTip
-                tip={'Lorem inpsum Lorem inpsum Lorem inpsum Lorem inpsum Lorem inpsum Lorem inpsum '}
+                tip={'1 Lorem inpsum Lorem inpsum Lorem inpsum Lorem inpsum Lorem inpsum Lorem inpsum '}
                 text={'This is This is This is'}
             />
             <ToolTip
-                tip={'Lorem inpsum Lorem inpsum Lorem inpsum Lorem inpsum Lorem inpsum Lorem inpsum '}
+                tip={'2 Lorem inpsum Lorem inpsum Lorem inpsum Lorem inpsum Lorem inpsum Lorem inpsum '}
             />
-            <Button
-                type={'submit'}
-                text={'sumbit'}
-            />
+            <WithTooltip
+                tip={'3 Button disabled cos fuck u'}
+                showOnCondition={disabled}
+            >
+                <Button
+                    type={'submit'}
+                    text={'submit'}
+                    fillContainer={true}
+                    disabled={disabled}
+                />
+            </WithTooltip>
         </form>
     );
 };

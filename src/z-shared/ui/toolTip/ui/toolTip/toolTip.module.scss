@@ -2,6 +2,7 @@
 
 .container {
   @include flex-row-center(4px);
+  @include size-svg(16px);
 
   color: $grayscale-8;
   cursor: help;
@@ -14,12 +15,5 @@
 
   .text {
     @extend %text;
-  }
-
-  .icon-wrapper {
-    @include size-svg(16px);
-
-    max-height: 16px;
-    position: relative;
   }
 }
