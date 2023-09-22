@@ -1,0 +1,21 @@
+@import '@/app/styles';
+
+.option {
+  justify-content: flex-start;
+
+  span {
+    text-align: left;
+    flex-grow: 1;
+  }
+
+  &--selected {
+    color: var(--content-hover-color);
+    background-color: var(--bg-hover-color);
+    transition: filter $default-transition;
+
+    &:focus-visible,
+    &:hover {
+      filter: contrast(0.9);
+    }
+  }
+}

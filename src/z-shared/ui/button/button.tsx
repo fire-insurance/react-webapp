@@ -1,13 +1,13 @@
 import s from './button.module.scss';
 import clsx from 'clsx';
 import { ButtonProps, ButtonSize, ButtonVariant } from './types/buttonTypes';
-import { useMemo } from 'react';
+import { forwardRef, useImperativeHandle, useMemo } from 'react';
 import { generateButtonCssVar } from './lib/utils/generateButtonCssVar';
 import { useActiveIndicator } from '../../lib/hooks/useActiveIndicator/useActiveIndicator';
 import { Loader } from '../loader/loader';
 import { IconWrapper } from './ui/iconWrapper';
 
-export const Button = (props: ButtonProps) => {
+export const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => {
     const {
         className, variant = ButtonVariant.PRIMARY, size = ButtonSize.L, theme, iconAlignment = 'left', type = 'button',
         icon: Icon = null, secondaryIcon: SecondaryIcon, fillContainer, onClick, showLoader, text, ...rest
@@ -17,6 +17,8 @@ export const Button = (props: ButtonProps) => {
         || variant === ButtonVariant.FLAT || variant === ButtonVariant.THIN;
     const buttonRef = useActiveIndicator<HTMLButtonElement>({ disabled: disableActiveIndicator });
     const buttonVar = useMemo(() => generateButtonCssVar(variant, theme), [ variant, theme ]);
+
+    useImperativeHandle(ref, () => buttonRef.current as HTMLButtonElement, []);
 
     return (
         <button
@@ -63,4 +65,4 @@ export const Button = (props: ButtonProps) => {
             { typeof SecondaryIcon === 'function' ? <SecondaryIcon/> : SecondaryIcon }
         </button>
     );
-};
+});

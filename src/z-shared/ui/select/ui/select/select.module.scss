@@ -1,0 +1,44 @@
+@import '@/app/styles';
+
+.options {
+  @include menu-shadow;
+  @include flex-col(2px);
+
+  position: absolute;
+  top: 100%;
+  left: 0;
+  padding: 4px;
+  border-radius: 8px;
+  width: 100%;
+  transition: transform $default-transition, opacity $default-transition;
+  opacity: 0;
+  visibility: hidden;
+  z-index: 1000;
+
+  &--primary {
+    background-color: $grayscale-1;
+  }
+
+  &--secondary {
+    background-color: $grayscale-2;
+  }
+}
+
+.select {
+  position: relative;
+  cursor: pointer;
+
+  &--opened .options {
+    visibility: visible;
+    opacity: 1;
+    transform: translateY(8px);
+  }
+
+  &--disabled {
+    @extend %disabled;
+  }
+}
+
+.input {
+  cursor: pointer;
+}

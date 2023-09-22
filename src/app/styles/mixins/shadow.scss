@@ -7,3 +7,13 @@
     2.5px 2.5px 22.1px 0 rgb(0 0 0 / 3%),
     6px 6px 53px 0 rgba(0 0 0 / 4%);
 }
+
+@mixin menu-shadow {
+  box-shadow:
+    4px 3.7px 1.1px rgb(0 0 0 / 0.9%),
+    6.7px 6.3px 3px rgb(0 0 0 / 1.4%),
+    8.3px 7.9px 6.1px rgb(0 0 0 / 1.8%),
+    9.4px 8.9px 11.6px rgb(0 0 0 / 2.1%),
+    10.7px 10.1px 22.6px rgb(0 0 0 / 2.6%),
+    17px 16px 55px rgb(0 0 0 / 4%);
+}

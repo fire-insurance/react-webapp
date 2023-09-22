@@ -1,18 +1,18 @@
-import { CSSProperties, FocusEvent, forwardRef, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { CSSProperties, FocusEvent, forwardRef, useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
 import s from './input.module.scss';
-import { ButtonVariant } from '../button/types/buttonTypes';
+import { ButtonSize, ButtonVariant } from '../button/types/buttonTypes';
 import { v4 as uuid } from 'uuid';
 import { Button } from '../button';
 import clsx from 'clsx';
-import { InputProps } from './types/inputTypes';
+import { InputProps } from './lib/types/inputTypes';
 import { InputDataChip } from './ui/inputDataChip/inputDataChip';
-import { createRefCallbackForForwardedRef } from '@/z-shared/lib/utils/createRefCallbackForForwardedRef';
-import { useDebounce } from '@/z-shared/lib/hooks/useDebounce';
+import { useDebounce } from '../../lib/hooks/useDebounce';
 import { FieldsetWrapper } from './ui/fieldsetWrapper/fieldsetWrapper';
+import { isButtonProps } from './lib/utils/isButtonProps';
 
 export const Input = forwardRef<HTMLInputElement, InputProps>((props, forwardedRef) => {
     const {
-        label, background = 'primary', icon: Icon = null,
+        label, background = 'secondary', icon: Icon = null, className,
         button, helperText, errorText, id: propId, onBlur, onFocus, ...rest
     } = props;
     const id = useRef(propId ?? uuid());
@@ -27,6 +27,8 @@ export const Input = forwardRef<HTMLInputElement, InputProps>((props, forwardedR
     // "активное" состояние (label находится в legend)
     const [ isInActiveView, setIsInActiveView ] = useState<boolean>(!!rest.value);
     const [ isInFocus, setIsInFocus ] = useState(false);
+
+    useImperativeHandle(forwardedRef, () => inputRef.current as HTMLInputElement, []);
 
     // в неактивном состоянии мы должны знать ширину инпута, чтобы задать max-width для лейбла
     // т.к. мы не знаем, какой ширины будет компонент icon (ведь в него можно передать все что угодно)
@@ -112,9 +114,9 @@ export const Input = forwardRef<HTMLInputElement, InputProps>((props, forwardedR
                     )
                 }
                 <input
-                    className={s['input']}
+                    className={clsx(s['input'], className)}
                     id={id.current}
-                    ref={createRefCallbackForForwardedRef(inputRef, forwardedRef)}
+                    ref={inputRef}
                     onFocus={e => {
                         handleFocus();
                         onFocus && onFocus(e);
@@ -127,10 +129,16 @@ export const Input = forwardRef<HTMLInputElement, InputProps>((props, forwardedR
                 />
                 {
                     button && (
-                        <Button
-                            variant={ButtonVariant.GHOST}
-                            {...button}
-                        />
+                        !isButtonProps(button)
+                            ? button
+                            : (
+                                <Button
+                                    variant={ButtonVariant.GHOST}
+                                    size={ButtonSize.S}
+                                    className={s['input-button']}
+                                    {...button}
+                                />
+                            )
                     )
                 }
             </div>

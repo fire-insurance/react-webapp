@@ -1,0 +1,14 @@
+@import '@/app/styles';
+
+.container {
+  @include flex-row-center;
+
+  color: $grayscale-8;
+  padding-right: 4px;
+
+  .angle {
+    margin: 0 4px;
+    height: 24px;
+    width: 24px;
+  }
+}

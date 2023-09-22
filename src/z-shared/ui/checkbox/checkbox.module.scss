@@ -8,6 +8,7 @@
   cursor: pointer;
   color: $grayscale-10;
   transition: color $default-transition;
+  width: max-content;
 }
 
 .checkbox {
@@ -40,8 +41,8 @@ input {
     + .container .checkbox {
       @include color-svg($constant-white);
 
-      border-color: $accent-3;
-      background-color: $accent-3;
+      border-color: $accent-2;
+      background-color: $accent-2;
     }
 
     &:enabled:focus + .container,
@@ -49,8 +50,8 @@ input {
       color: $grayscale-12;
 
       .checkbox {
-        border-color: $accent-2;
-        background-color: $accent-2;
+        border-color: $accent-1;
+        background-color: $accent-1;
       }
     }
   }
@@ -76,4 +77,10 @@ input {
   height: 20px;
   width: 20px;
   border: 1px solid $grayscale-4;
+}
+
+.label-skeleton {
+  @extend %text;
+
+  min-width: 8ch;
 }

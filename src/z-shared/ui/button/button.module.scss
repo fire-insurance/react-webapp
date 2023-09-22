@@ -25,7 +25,7 @@
 
   @media (hover: hover) {
     &:enabled:hover,
-    &:enabled:focus {
+    &:enabled:focus-visible {
       color: var(--content-hover-color);
       background-color: var(--bg-hover-color);
 

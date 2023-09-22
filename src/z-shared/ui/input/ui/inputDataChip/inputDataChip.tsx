@@ -1,5 +1,5 @@
 import { DataChip, DataChipSize, DataChipVariant } from '@/z-shared/ui/dataChip';
-import { InputDataChipProps } from '../../types/inputTypes';
+import { InputDataChipProps } from '../../lib/types/inputTypes';
 import { useEffect, useRef } from 'react';
 
 interface HeighChangeHandler {

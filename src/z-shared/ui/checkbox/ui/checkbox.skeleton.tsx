@@ -1,4 +1,3 @@
-import { AppTypography } from '@/z-shared/types/appTypography';
 import { ParagraphSkeleton, Skeleton, SkeletonVariant } from '../../skeleton';
 import s from '../checkbox.module.scss';
 import { ParagraphSkeletonProps } from '../../skeleton/paragraph.skeleton';
@@ -16,7 +15,7 @@ export const CheckboxSkeleton = ({ text, lastLineWidth }: CheckboxSkeletonProps)
         {
             text && (
                 <ParagraphSkeleton
-                    className={AppTypography.TEXT}
+                    className={s['label-skeleton']}
                     lastLineWidth={lastLineWidth}
                 />
             )
